@@ -19,7 +19,7 @@ namespace Assecor.Backend.Dal.Contracts
         Task<List<CsvPerson>> GetPersonsByColorAsync(Color color);
 
         /// <summary>
-        /// Returns the person matching provided id
+        /// Returns the person matching provided id. If none found, null is returned
         /// </summary>
         /// <param name="id">the id to match</param>
         /// <returns></returns>
