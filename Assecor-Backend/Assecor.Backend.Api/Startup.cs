@@ -1,5 +1,8 @@
 ﻿using Assecor.Backend.Configuration;
 using Assecor.Backend.Dal.IoC;
+using Assecor.Services.IoC;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Assecor.Backend.Api
 {
@@ -12,14 +15,15 @@ namespace Assecor.Backend.Api
             Configuration = configuration;
         }
 
-        public void ConfigureService(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDalServices();
             services.AddControllers();
+            services.AddDalServices();
+            services.AddServiceLayerServices();
+            services.AddHttpContextAccessor();
+            services.AddHttpClient();
 
-            var csvOptions = new CsvOptions();
-            var csvOptionsSection = Configuration.GetSection("Connectionstrings");
-            csvOptionsSection.Bind(csvOptions);
+            services.Configure<CsvOptions>(Configuration.GetSection(nameof(CsvOptions)));
         }
 
         public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -29,17 +33,12 @@ namespace Assecor.Backend.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-           
-            // Adds middleware for dynamically compressing HTTP Responses.
-            app.UseResponseCompression();
 
             app.UseStaticFiles();
             app.UseRouting();
            
-            app.UseAuthentication();
-            app.UseAuthorization();
             app.UseHttpsRedirection();
-
+            
             // Endpoint mapping
             app.UseEndpoints(endpoints =>
             {
