@@ -15,6 +15,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assecor.Backend.Dal.IoC", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assecor.Backend.Configuration", "Assecor.Backend.Configuration\Assecor.Backend.Configuration.csproj", "{5F2ACB29-A241-435A-9041-76166C345A16}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assecor.Backend.Services", "Assecor.Backend.Services\Assecor.Backend.Services.csproj", "{9B8B97FB-FD1F-4A93-97A0-D6E8E5FEA276}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assecor.Services.Contracts", "Assecor.Services.Contracts\Assecor.Services.Contracts.csproj", "{64AC4502-2C2A-41CD-B912-8641401A96F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assecor.Services.IoC", "Assecor.Services.IoC\Assecor.Services.IoC.csproj", "{3DC05C32-1BB9-4348-A000-A5AFD66284D3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +51,18 @@ Global
 		{5F2ACB29-A241-435A-9041-76166C345A16}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F2ACB29-A241-435A-9041-76166C345A16}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F2ACB29-A241-435A-9041-76166C345A16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B8B97FB-FD1F-4A93-97A0-D6E8E5FEA276}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B8B97FB-FD1F-4A93-97A0-D6E8E5FEA276}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B8B97FB-FD1F-4A93-97A0-D6E8E5FEA276}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B8B97FB-FD1F-4A93-97A0-D6E8E5FEA276}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64AC4502-2C2A-41CD-B912-8641401A96F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64AC4502-2C2A-41CD-B912-8641401A96F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64AC4502-2C2A-41CD-B912-8641401A96F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64AC4502-2C2A-41CD-B912-8641401A96F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DC05C32-1BB9-4348-A000-A5AFD66284D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DC05C32-1BB9-4348-A000-A5AFD66284D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DC05C32-1BB9-4348-A000-A5AFD66284D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DC05C32-1BB9-4348-A000-A5AFD66284D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
