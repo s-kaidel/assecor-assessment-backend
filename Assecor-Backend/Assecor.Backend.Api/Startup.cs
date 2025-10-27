@@ -1,4 +1,6 @@
-﻿namespace Assecor.Backend.Api
+﻿using Assecor.Backend.Configuration;
+
+namespace Assecor.Backend.Api
 {
     public class Startup
     {
@@ -11,8 +13,11 @@
 
         public void ConfigureService(IServiceCollection services)
         {
-            services
-                .AddControllers();
+            services.AddControllers();
+
+            var csvOptions = new CsvOptions();
+            var csvOptionsSection = Configuration.GetSection("Connectionstrings");
+            csvOptionsSection.Bind(csvOptions);
         }
 
         public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)

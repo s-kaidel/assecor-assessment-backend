@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assecor.Backend.Dal.Contrac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assecor.Backend.Dal.IoC", "Assecor.Backend.Dal.IoC\Assecor.Backend.Dal.IoC.csproj", "{CD05C2D5-ACA9-4E9B-B84D-EA3623571382}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assecor.Backend.Configuration", "Assecor.Backend.Configuration\Assecor.Backend.Configuration.csproj", "{5F2ACB29-A241-435A-9041-76166C345A16}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{CD05C2D5-ACA9-4E9B-B84D-EA3623571382}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD05C2D5-ACA9-4E9B-B84D-EA3623571382}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD05C2D5-ACA9-4E9B-B84D-EA3623571382}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F2ACB29-A241-435A-9041-76166C345A16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F2ACB29-A241-435A-9041-76166C345A16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F2ACB29-A241-435A-9041-76166C345A16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F2ACB29-A241-435A-9041-76166C345A16}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
