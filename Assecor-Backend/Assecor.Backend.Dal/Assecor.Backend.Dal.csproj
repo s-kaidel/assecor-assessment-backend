@@ -11,4 +11,9 @@
     <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.10" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Assecor.Backend.Dal.Contracts\Assecor.Backend.Dal.Contracts.csproj" />
+    <ProjectReference Include="..\Assecor.Backend.Domain\Assecor.Backend.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
