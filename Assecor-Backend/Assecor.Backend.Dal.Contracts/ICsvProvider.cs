@@ -1,9 +1,28 @@
 ﻿using Assecor.Backend.Domain.DalModels;
+using Assecor.Backend.Domain.Enums;
 
 namespace Assecor.Backend.Dal.Contracts
 {
     public interface ICsvProvider
     {
+        /// <summary>
+        /// Reads all person records from a csv file and returns them as a list
+        /// </summary>
+        /// <returns></returns>
         Task<List<CsvPerson>> ReadPersonsFromCsvAsync();
+
+        /// <summary>
+        /// Returns all persons whose favorite color is provided color
+        /// </summary>
+        /// <param name="color">the color to match</param>
+        /// <returns></returns>
+        Task<List<CsvPerson>> GetPersonsByColorAsync(Color color);
+
+        /// <summary>
+        /// Returns the person matching provided id
+        /// </summary>
+        /// <param name="id">the id to match</param>
+        /// <returns></returns>
+        Task<CsvPerson?> GetPersonByIdAsync(int id);
     }
 }

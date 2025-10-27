@@ -7,6 +7,7 @@ using CsvHelper.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Globalization;
+using Assecor.Backend.Domain.Enums;
 
 namespace Assecor.Backend.Dal.Provider
 {
@@ -37,6 +38,31 @@ namespace Assecor.Backend.Dal.Provider
                 logger.LogError($"An error occurred while trying to read persons from csv: {e.Message}");
                 return new();
             }
+        }
+
+        public async Task<List<CsvPerson>> GetPersonsByColorAsync(Color color)
+        {
+            var persons = await ReadPersonsFromCsvAsync();
+
+            var matchingPersons = persons.Where(x => x.Color != null && x.Color == color).ToList();
+
+            logger.LogInformation($"Found {matchingPersons.Count} persons for color {color.ToString()}");
+
+            return matchingPersons;
+        }
+
+        public async Task<CsvPerson?> GetPersonByIdAsync(int id)
+        {
+            var persons = await ReadPersonsFromCsvAsync();
+
+            var person = persons.FirstOrDefault(x => x.Id == id);
+
+            if (person is null)
+            {
+                logger.LogInformation($"No person matching id {id} found.");
+            }
+
+            return person;
         }
 
         private async Task<List<CsvPerson>> ReadPersons(CsvReader csv)
