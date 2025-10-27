@@ -1,0 +1,6 @@
+@Assecor.Backend.Api_HostAddress = http://localhost:5268
+
+GET {{Assecor.Backend.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
