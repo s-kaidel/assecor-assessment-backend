@@ -4,6 +4,6 @@ namespace Assecor.Services.Contracts
 {
     public interface IPersonService
     {
-        List<Person> GetPersons();
+        Task<List<Person>> GetAllPersonsAsync();
     }
 }

@@ -8,9 +8,9 @@ namespace Assecor.Backend.Api.Controllers
     [Route("api/persons")]
     public class PersonController(IPersonService personService) : ControllerBase
     {
-        public IActionResult GetPersons()
+        public async Task<IActionResult> GetPersonsAsync()
         {
-            var persons = personService.GetPersons();
+            var persons = await personService.GetAllPersonsAsync();
             var apiPersons = ApiPersonMapper.MapFromDomainPersons(persons);
             return new OkObjectResult(apiPersons);
         }

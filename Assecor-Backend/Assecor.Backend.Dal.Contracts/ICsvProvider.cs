@@ -4,6 +4,6 @@ namespace Assecor.Backend.Dal.Contracts
 {
     public interface ICsvProvider
     {
-        List<CsvPerson> ReadPersonsFromCsv();
+        Task<List<CsvPerson>> ReadPersonsFromCsvAsync();
     }
 }

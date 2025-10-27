@@ -14,7 +14,7 @@ namespace Assecor.Backend.Dal.Provider
     {
         private readonly string _filePath = options.Value.CsvFilePath;
         private readonly CsvReaderHelper _helper = new();
-        public List<CsvPerson> ReadPersonsFromCsv()
+        public async Task<List<CsvPerson>> ReadPersonsFromCsvAsync()
         {
             try
             {
@@ -24,9 +24,12 @@ namespace Assecor.Backend.Dal.Provider
                     MissingFieldFound = null // ignore missing fields
                 };
                 logger.LogInformation($"Reading csv file from location: {_filePath}");
+
                 using var reader = new StreamReader(_filePath);
                 using var csv = new CsvReader(reader, config);
-                var persons = ReadPersons(csv);
+                var persons = await ReadPersons(csv);
+
+                logger.LogInformation($"Found {persons.Count} person records");
                 return persons;
             }
             catch (Exception e)
@@ -36,11 +39,11 @@ namespace Assecor.Backend.Dal.Provider
             }
         }
 
-        private List<CsvPerson> ReadPersons(CsvReader csv)
+        private async Task<List<CsvPerson>> ReadPersons(CsvReader csv)
         {
             var persons = new List<CsvPerson>();
             var rowNumber = 1;
-            while (csv.Read())
+            while (await csv.ReadAsync())
             {
                 var fields = csv.Parser.Record;
                 var person = _helper.GetPersonFromCsvRow(fields ?? [], rowNumber);
@@ -50,7 +53,5 @@ namespace Assecor.Backend.Dal.Provider
 
             return persons;
         }
-
-        
     }
 }
