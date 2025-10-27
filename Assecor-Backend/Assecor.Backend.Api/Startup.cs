@@ -8,5 +8,36 @@
         {
             Configuration = configuration;
         }
+
+        public void ConfigureService(IServiceCollection services)
+        {
+            services
+                .AddControllers();
+        }
+
+        public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            // Setup development ASP.NET pipeline.
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+           
+            // Adds middleware for dynamically compressing HTTP Responses.
+            app.UseResponseCompression();
+
+            app.UseStaticFiles();
+            app.UseRouting();
+           
+            app.UseAuthentication();
+            app.UseAuthorization();
+            app.UseHttpsRedirection();
+
+            // Endpoint mapping
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+        }
     }
 }
