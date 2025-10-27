@@ -19,7 +19,7 @@ namespace Assecor.Backend.Domain.Mapping
                 Name = domainPerson.Name,
                 LastName = domainPerson.LastName,
                 City = domainPerson.City,
-                Color = domainPerson.Color,
+                Color = domainPerson.Color.ToString()?.ToLower(),
                 ZipCode = domainPerson.ZipCode
             };
             return person;

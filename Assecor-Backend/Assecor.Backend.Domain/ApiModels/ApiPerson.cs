@@ -9,6 +9,6 @@ namespace Assecor.Backend.Domain.ApiModels
         public string? LastName { get; set; }
         public int? ZipCode { get; set; }
         public string? City { get; set; }
-        public Color? Color { get; set; }
+        public string? Color { get; set; }
     }
 }
