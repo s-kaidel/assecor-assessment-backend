@@ -1,4 +1,5 @@
 ﻿using Assecor.Backend.Configuration;
+using Assecor.Backend.Dal.IoC;
 
 namespace Assecor.Backend.Api
 {
@@ -13,6 +14,7 @@ namespace Assecor.Backend.Api
 
         public void ConfigureService(IServiceCollection services)
         {
+            services.AddDalServices();
             services.AddControllers();
 
             var csvOptions = new CsvOptions();

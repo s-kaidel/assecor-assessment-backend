@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Assecor.Backend.Configuration\Assecor.Backend.Configuration.csproj" />
+    <ProjectReference Include="..\Assecor.Backend.Dal.IoC\Assecor.Backend.Dal.IoC.csproj" />
   </ItemGroup>
 
 </Project>
