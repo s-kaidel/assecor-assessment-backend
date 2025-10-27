@@ -1,26 +1,27 @@
-﻿using System.Globalization;
-using Assecor.Backend.Configuration;
+﻿using Assecor.Backend.Configuration;
 using Assecor.Backend.Dal.Contracts;
+using Assecor.Backend.Dal.Helper;
 using Assecor.Backend.Domain.DalModels;
-using Assecor.Backend.Domain.Enums;
 using CsvHelper;
 using CsvHelper.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.Globalization;
 
 namespace Assecor.Backend.Dal.Provider
 {
     public class CsvProvider(ILogger<CsvProvider> logger, IOptions<CsvOptions> options) : ICsvProvider
     {
         private readonly string _filePath = options.Value.CsvFilePath;
+        private readonly CsvReaderHelper _helper = new();
         public List<CsvPerson> ReadPersonsFromCsv()
         {
             try
             {
                 var config = new CsvConfiguration(CultureInfo.InvariantCulture)
                 {
-                    HeaderValidated = null, // fehlende Header ignorieren
-                    MissingFieldFound = null // fehlende Felder ignorieren
+                    HeaderValidated = null, // ignore missing headers
+                    MissingFieldFound = null // ignore missing fields
                 };
                 logger.LogInformation($"Reading csv file from location: {_filePath}");
                 using var reader = new StreamReader(_filePath);
@@ -41,31 +42,15 @@ namespace Assecor.Backend.Dal.Provider
             var rowNumber = 1;
             while (csv.Read())
             {
-                var id = rowNumber;
-                var name = csv.GetField(0)?.Trim();
-                var lastName = csv.GetField(1)?.Trim();
-                var location = csv.GetField(2);
-                var color = int.TryParse(csv.GetField(3), out var colorNr);
-
-                var split = location?.Trim().Split(' ');
-                var zipCode = int.TryParse(split?[0], out var zip);
-                var city = split?[1];
-
-                var person = new CsvPerson()
-                {
-                    Id = id,
-                    Name = name ?? string.Empty,
-                    LastName = lastName ?? string.Empty,
-                    Color = (Color)colorNr,
-                    City = city ?? string.Empty,
-                    ZipCode = zip,
-                };
-
+                var fields = csv.Parser.Record;
+                var person = _helper.GetPersonFromCsvRow(fields ?? [], rowNumber);
                 persons.Add(person);
                 rowNumber++;
             }
 
             return persons;
         }
+
+        
     }
 }
