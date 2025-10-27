@@ -1,4 +1,5 @@
-﻿using Assecor.Services.Contracts;
+﻿using Assecor.Backend.Domain.Mapping;
+using Assecor.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Assecor.Backend.Api.Controllers
@@ -10,7 +11,8 @@ namespace Assecor.Backend.Api.Controllers
         public IActionResult GetPersons()
         {
             var persons = personService.GetPersons();
-            return new OkObjectResult(persons);
+            var apiPersons = ApiPersonMapper.MapFromDomainPersons(persons);
+            return new OkObjectResult(apiPersons);
         }
     }
 }
