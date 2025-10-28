@@ -3,11 +3,10 @@ using Assecor.Backend.Domain.BackendModels;
 using Assecor.Backend.Domain.Enums;
 using Assecor.Backend.Domain.Mapping;
 using Assecor.Services.Contracts;
-using Microsoft.Extensions.Logging;
 
 namespace Assecor.Backend.Services
 {
-    public class PersonService(ILogger<PersonService> logger, ICsvPersonProvider csvProvider) : IPersonService
+    public class PersonService(ICsvPersonProvider csvProvider) : IPersonService
     {
         public async Task<List<Person>> GetAllPersonsAsync()
         {

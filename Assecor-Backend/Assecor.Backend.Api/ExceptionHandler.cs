@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Assecor.Backend.Domain.Exceptions;
+﻿using Assecor.Backend.Domain.Exceptions;
 using Newtonsoft.Json;
 
 namespace Assecor.Backend.Api

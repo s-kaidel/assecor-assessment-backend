@@ -41,24 +41,7 @@ namespace Assecor.Backend.Dal.Provider
 
             var person = persons.FirstOrDefault(x => x.Id == id);
 
-            if (person is null)
-            {
-                var error = $"No person matching id {id} found.";
-                logger.LogInformation(error);
-                throw new KeyNotFoundException(error);
-            }
-
-            return person;
-        }
-
-        private void CheckFilePath()
-        {
-            if (File.Exists(_filePath))
-            {
-                return;
-            }
-            var error = "Csv file not found, please review provided file location in appSettings";
-            throw new FileNotFoundException(error);
+            return person ?? throw new KeyNotFoundException($"No person matching id {id} found.");
         }
 
         private async Task<List<CsvPerson>> ReadPersonsFromCsvAsync()
@@ -74,30 +57,37 @@ namespace Assecor.Backend.Dal.Provider
             var persons = new List<CsvPerson>();
             var rowNumber = 1;
 
-            using var reader = new StreamReader(_filePath);
-            using var csv = new CsvReader(reader, config);
-
-            while (await csv.ReadAsync())
+            try
             {
-                try
+                using var reader = new StreamReader(_filePath);
+                using var csv = new CsvReader(reader, config);
+
+                while (await csv.ReadAsync())
                 {
+                    
                     var fields = csv.Parser.Record;
                     var person = _helper.GetPersonFromCsvRow(fields ?? [], rowNumber);
                     if (person != null)
                     {
                         persons.Add(person);
                     }
-
                     rowNumber++;
                 }
-                catch (Exception ex)
-                {
-                    var error = $"Csv reading error in row {rowNumber}: {ex}";
-                    throw new CsvReaderException(error);
-                }
+            }
+            catch (Exception ex)
+            {
+                throw new CsvReaderException($"Csv reading error in row {rowNumber}: {ex.Message}");
             }
 
             return persons;
+        }
+        private void CheckFilePath()
+        {
+            if (File.Exists(_filePath))
+            {
+                return;
+            }
+            throw new FileNotFoundException("Csv file not found, please review file location in appSettings");
         }
     }
 }
