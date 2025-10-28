@@ -33,6 +33,10 @@ namespace Assecor.Backend.Api
                     statusCode = StatusCodes.Status404NotFound;
                     title = "Resource not found.";
                     break;
+
+                case FileNotFoundException:
+                    title = "Could not find csv file";
+                    break;
             }
 
             logger.LogError(ex, ex.Message);

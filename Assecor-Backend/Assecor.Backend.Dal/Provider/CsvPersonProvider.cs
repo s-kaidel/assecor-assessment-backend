@@ -51,9 +51,19 @@ namespace Assecor.Backend.Dal.Provider
             return person;
         }
 
+        private void CheckFilePath()
+        {
+            if (File.Exists(_filePath))
+            {
+                return;
+            }
+            var error = "Csv file not found, please review provided file location in appSettings";
+            throw new FileNotFoundException(error);
+        }
+
         private async Task<List<CsvPerson>> ReadPersonsFromCsvAsync()
         {
-            
+            CheckFilePath();
             var config = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
                 HeaderValidated = null, // ignore missing headers
@@ -83,7 +93,6 @@ namespace Assecor.Backend.Dal.Provider
                 catch (Exception ex)
                 {
                     var error = $"Csv reading error in row {rowNumber}: {ex}";
-                    logger.LogError(error);
                     throw new CsvReaderException(error);
                 }
             }
