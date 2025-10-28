@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36616.10 d17.14
+VisualStudioVersion = 17.14.36616.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assecor.Backend.Api", "Assecor.Backend.Api\Assecor.Backend.Api.csproj", "{F8E45744-E1C6-49AB-95F0-2C63C1A575D4}"
 EndProject
@@ -20,6 +20,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assecor.Services.Contracts", "Assecor.Services.Contracts\Assecor.Services.Contracts.csproj", "{64AC4502-2C2A-41CD-B912-8641401A96F0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assecor.Services.IoC", "Assecor.Services.IoC\Assecor.Services.IoC.csproj", "{3DC05C32-1BB9-4348-A000-A5AFD66284D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assecor.Backend.CsvAccess", "Assecor.Backend.Csv\Assecor.Backend.CsvAccess.csproj", "{31D0F8A5-FE56-4B83-966D-4C5147425EEA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{3DC05C32-1BB9-4348-A000-A5AFD66284D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DC05C32-1BB9-4348-A000-A5AFD66284D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3DC05C32-1BB9-4348-A000-A5AFD66284D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31D0F8A5-FE56-4B83-966D-4C5147425EEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31D0F8A5-FE56-4B83-966D-4C5147425EEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31D0F8A5-FE56-4B83-966D-4C5147425EEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31D0F8A5-FE56-4B83-966D-4C5147425EEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

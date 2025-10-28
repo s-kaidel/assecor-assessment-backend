@@ -8,13 +8,12 @@
 
   <ItemGroup>
     <PackageReference Include="CsvHelper" Version="33.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.10" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.10" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.10" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Assecor.Backend.Configuration\Assecor.Backend.Configuration.csproj" />
-    <ProjectReference Include="..\Assecor.Backend.Csv\Assecor.Backend.CsvAccess.csproj" />
-    <ProjectReference Include="..\Assecor.Backend.Dal.Contracts\Assecor.Backend.Dal.Contracts.csproj" />
     <ProjectReference Include="..\Assecor.Backend.Domain\Assecor.Backend.Domain.csproj" />
   </ItemGroup>
 
