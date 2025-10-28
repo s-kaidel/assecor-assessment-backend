@@ -9,7 +9,7 @@ namespace Assecor.Backend.Dal.Contracts
         /// Reads all person records from a csv file and returns them as a list
         /// </summary>
         /// <returns></returns>
-        Task<List<CsvPerson>> ReadPersonsFromCsvAsync();
+        Task<List<CsvPerson>> GetAllPersonsAsync();
 
         /// <summary>
         /// Returns all persons whose favorite color is provided color

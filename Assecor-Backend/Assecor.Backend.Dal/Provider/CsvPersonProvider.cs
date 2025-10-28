@@ -15,29 +15,12 @@ namespace Assecor.Backend.Dal.Provider
     {
         private readonly string _filePath = options.Value.CsvFilePath;
         private readonly CsvReaderHelper _helper = new();
-        public async Task<List<CsvPerson>> ReadPersonsFromCsvAsync()
+        public async Task<List<CsvPerson>> GetAllPersonsAsync()
         {
-            try
-            {
-                var config = new CsvConfiguration(CultureInfo.InvariantCulture)
-                {
-                    HeaderValidated = null, // ignore missing headers
-                    MissingFieldFound = null // ignore missing fields
-                };
-                logger.LogInformation($"Reading csv file from location: {_filePath}");
+            var persons = await ReadPersonsFromCsvAsync();
 
-                using var reader = new StreamReader(_filePath);
-                using var csv = new CsvReader(reader, config);
-                var persons = await ReadPersonsAsync(csv);
-
-                logger.LogInformation($"Found {persons.Count} person records");
-                return persons;
-            }
-            catch (Exception e)
-            {
-                logger.LogError($"An error occurred while trying to read persons from csv: {e.Message}");
-                return new();
-            }
+            logger.LogInformation($"Found {persons.Count} person records");
+            return persons;
         }
 
         public async Task<List<CsvPerson>> GetPersonsByColorAsync(Color color)
@@ -65,15 +48,31 @@ namespace Assecor.Backend.Dal.Provider
             return person;
         }
 
-        private async Task<List<CsvPerson>> ReadPersonsAsync(CsvReader csv)
+        private async Task<List<CsvPerson>> ReadPersonsFromCsvAsync()
         {
+            
+            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                HeaderValidated = null, // ignore missing headers
+                MissingFieldFound = null // ignore missing fields
+            };
+
+            logger.LogInformation($"Reading csv file from location: {_filePath}");
             var persons = new List<CsvPerson>();
             var rowNumber = 1;
+
+            using var reader = new StreamReader(_filePath);
+            using var csv = new CsvReader(reader, config);
+
             while (await csv.ReadAsync())
             {
                 var fields = csv.Parser.Record;
                 var person = _helper.GetPersonFromCsvRow(fields ?? [], rowNumber);
-                persons.Add(person);
+                if (person != null)
+                {
+                    persons.Add(person);
+                }
+
                 rowNumber++;
             }
 

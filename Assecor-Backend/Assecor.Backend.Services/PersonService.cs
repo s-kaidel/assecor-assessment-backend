@@ -11,7 +11,7 @@ namespace Assecor.Backend.Services
     {
         public async Task<List<Person>> GetAllPersonsAsync()
         {
-            var dalPersons = await csvProvider.ReadPersonsFromCsvAsync();
+            var dalPersons = await csvProvider.GetAllPersonsAsync();
             var persons = PersonMapper.MapFromCsvPersons(dalPersons);
             return persons;
         }

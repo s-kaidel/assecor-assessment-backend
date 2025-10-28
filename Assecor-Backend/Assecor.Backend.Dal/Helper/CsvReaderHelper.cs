@@ -11,7 +11,7 @@ namespace Assecor.Backend.Dal.Helper
         /// <param name="fields">values of the currently read row</param>
         /// <param name="rowNumber">the current row</param>
         /// <returns></returns>
-        public CsvPerson GetPersonFromCsvRow(IEnumerable<string> fields, int rowNumber)
+        public CsvPerson? GetPersonFromCsvRow(IEnumerable<string> fields, int rowNumber)
         {
             string? name = null;
             string? lastName = null;
@@ -19,7 +19,14 @@ namespace Assecor.Backend.Dal.Helper
             int? zipCode = null;
             Color? color = null;
 
-            foreach (var field in fields)
+            var fieldsList = fields.ToList();
+
+            if (fieldsList.Count == 0)
+            {
+                return null;
+            }
+
+            foreach (var field in fieldsList)
             {
                 var value = field.Trim();
 
