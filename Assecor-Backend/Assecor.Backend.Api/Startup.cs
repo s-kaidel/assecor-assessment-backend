@@ -36,7 +36,7 @@ namespace Assecor.Backend.Api
 
             app.UseStaticFiles();
             app.UseRouting();
-           
+            app.UseMiddleware<ExceptionHandler>();
             app.UseHttpsRedirection();
             
             // Endpoint mapping
