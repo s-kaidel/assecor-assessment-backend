@@ -12,7 +12,7 @@ namespace Assecor.Backend.Dal.Provider
         public async Task<List<CsvPerson>> GetAllPersonsAsync()
         {
             var persons = await GetPersonsAsync();
-            logger.LogInformation($"Found {persons.Count} person records");
+            logger.LogInformation("Found {Count} person records", persons.Count);
             return persons;
         }
 
@@ -24,7 +24,7 @@ namespace Assecor.Backend.Dal.Provider
                 .Where(x => x.Color != null && x.Color == color)
                 .ToList();
 
-            logger.LogInformation($"Found {matchingPersons.Count} persons for color '{color.ToString()}'");
+            logger.LogInformation("Found {MatchingPersonsCount} persons for color '{Color}'", matchingPersons.Count, color.ToString());
 
             return matchingPersons;
         }
