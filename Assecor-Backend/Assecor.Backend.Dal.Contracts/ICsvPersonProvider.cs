@@ -23,6 +23,6 @@ namespace Assecor.Backend.Dal.Contracts
         /// </summary>
         /// <param name="id">the id to match</param>
         /// <returns></returns>
-        Task<CsvPerson?> GetPersonByIdAsync(int id);
+        Task<CsvPerson> GetPersonByIdAsync(int id);
     }
 }

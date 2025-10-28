@@ -47,15 +47,9 @@ namespace Assecor.Backend.Api.Controllers
         [ProducesResponseType(typeof(ApiPerson), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetPersonByIdAsync(int id)
         {
-            ApiPerson? apiPerson = null;
             var person = await personService.GetPersonByIdAsync(id);
-            if (person != null)
-            {
-                apiPerson = ApiPersonMapper.MapFromDomainPerson(person);
-            }
-
+            var apiPerson = ApiPersonMapper.MapFromDomainPerson(person);
             return new OkObjectResult(apiPerson);
         }
-        
     }
 }

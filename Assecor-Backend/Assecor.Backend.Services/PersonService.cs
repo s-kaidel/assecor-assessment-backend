@@ -22,15 +22,12 @@ namespace Assecor.Backend.Services
             return persons;
         }
 
-        public async Task<Person?> GetPersonByIdAsync(int id)
+        public async Task<Person> GetPersonByIdAsync(int id)
         {
-            Person? person = null;
             var csvPerson = await csvProvider.GetPersonByIdAsync(id);
-
-            if (csvPerson != null)
-            {
-                person = PersonMapper.MapFromCsvPerson(csvPerson);
-            }
+            
+            var person = PersonMapper.MapFromCsvPerson(csvPerson);
+            
             return person;
         }
     }

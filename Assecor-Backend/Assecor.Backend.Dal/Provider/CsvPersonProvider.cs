@@ -29,7 +29,7 @@ namespace Assecor.Backend.Dal.Provider
             return matchingPersons;
         }
 
-        public async Task<CsvPerson?> GetPersonByIdAsync(int id)
+        public async Task<CsvPerson> GetPersonByIdAsync(int id)
         {
             var persons = await GetPersonsAsync();
 

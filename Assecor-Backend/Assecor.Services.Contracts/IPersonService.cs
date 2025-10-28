@@ -23,6 +23,6 @@ namespace Assecor.Services.Contracts
         /// </summary>
         /// <param name="id">the id to match</param>
         /// <returns></returns>
-        Task<Person?> GetPersonByIdAsync(int id);
+        Task<Person> GetPersonByIdAsync(int id);
     }
 }
