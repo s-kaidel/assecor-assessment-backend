@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Globalization;
 using Assecor.Backend.Domain.Enums;
+using Assecor.Backend.Domain.Exceptions;
 
 namespace Assecor.Backend.Dal.Provider
 {
@@ -42,7 +43,9 @@ namespace Assecor.Backend.Dal.Provider
 
             if (person is null)
             {
-                logger.LogInformation($"No person matching id {id} found.");
+                var error = $"No person matching id {id} found.";
+                logger.LogInformation(error);
+                throw new KeyNotFoundException(error);
             }
 
             return person;
@@ -66,14 +69,23 @@ namespace Assecor.Backend.Dal.Provider
 
             while (await csv.ReadAsync())
             {
-                var fields = csv.Parser.Record;
-                var person = _helper.GetPersonFromCsvRow(fields ?? [], rowNumber);
-                if (person != null)
+                try
                 {
-                    persons.Add(person);
-                }
+                    var fields = csv.Parser.Record;
+                    var person = _helper.GetPersonFromCsvRow(fields ?? [], rowNumber);
+                    if (person != null)
+                    {
+                        persons.Add(person);
+                    }
 
-                rowNumber++;
+                    rowNumber++;
+                }
+                catch (Exception ex)
+                {
+                    var error = $"Csv reading error in row {rowNumber}: {ex}";
+                    logger.LogError(error);
+                    throw new CsvReaderException(error);
+                }
             }
 
             return persons;
