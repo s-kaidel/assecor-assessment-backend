@@ -8,7 +8,7 @@ namespace Assecor.Backend.Dal.IoC
     {
         public static IServiceCollection AddDalServices(this IServiceCollection services)
         {
-            services.AddScoped<ICsvProvider, CsvProvider>();
+            services.AddScoped<ICsvPersonProvider, CsvPersonProvider>();
             return services;
         }
     }

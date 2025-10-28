@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Assecor.Backend.Services
 {
-    public class PersonService(ILogger<PersonService> logger, ICsvProvider csvProvider) : IPersonService
+    public class PersonService(ILogger<PersonService> logger, ICsvPersonProvider csvProvider) : IPersonService
     {
         public async Task<List<Person>> GetAllPersonsAsync()
         {

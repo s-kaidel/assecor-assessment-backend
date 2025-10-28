@@ -11,7 +11,7 @@ using Assecor.Backend.Domain.Enums;
 
 namespace Assecor.Backend.Dal.Provider
 {
-    public class CsvProvider(ILogger<CsvProvider> logger, IOptions<CsvOptions> options) : ICsvProvider
+    public class CsvPersonProvider(ILogger<CsvPersonProvider> logger, IOptions<CsvOptions> options) : ICsvPersonProvider
     {
         private readonly string _filePath = options.Value.CsvFilePath;
         private readonly CsvReaderHelper _helper = new();
@@ -28,7 +28,7 @@ namespace Assecor.Backend.Dal.Provider
 
                 using var reader = new StreamReader(_filePath);
                 using var csv = new CsvReader(reader, config);
-                var persons = await ReadPersons(csv);
+                var persons = await ReadPersonsAsync(csv);
 
                 logger.LogInformation($"Found {persons.Count} person records");
                 return persons;
@@ -65,7 +65,7 @@ namespace Assecor.Backend.Dal.Provider
             return person;
         }
 
-        private async Task<List<CsvPerson>> ReadPersons(CsvReader csv)
+        private async Task<List<CsvPerson>> ReadPersonsAsync(CsvReader csv)
         {
             var persons = new List<CsvPerson>();
             var rowNumber = 1;

@@ -3,7 +3,7 @@ using Assecor.Backend.Domain.Enums;
 
 namespace Assecor.Backend.Dal.Contracts
 {
-    public interface ICsvProvider
+    public interface ICsvPersonProvider
     {
         /// <summary>
         /// Reads all person records from a csv file and returns them as a list
