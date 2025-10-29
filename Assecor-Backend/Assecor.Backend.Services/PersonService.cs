@@ -1,4 +1,5 @@
 ﻿using Assecor.Backend.Dal.Contracts;
+using Assecor.Backend.Domain;
 using Assecor.Backend.Domain.BackendModels;
 using Assecor.Backend.Domain.Enums;
 using Assecor.Backend.Domain.Mapping;
@@ -22,12 +23,10 @@ namespace Assecor.Backend.Services
             return persons;
         }
 
-        public async Task<Person> GetPersonByIdAsync(int id)
+        public async Task<Maybe<Person>> GetPersonByIdAsync(int id)
         {
             var csvPerson = await csvProvider.GetPersonByIdAsync(id);
-            
-            var person = PersonMapper.MapFromCsvPerson(csvPerson);
-            
+            var person = csvPerson.Map(PersonMapper.MapFromCsvPerson);
             return person;
         }
     }

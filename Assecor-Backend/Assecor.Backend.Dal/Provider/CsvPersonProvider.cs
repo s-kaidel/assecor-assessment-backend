@@ -1,5 +1,6 @@
 ﻿using Assecor.Backend.CsvAccess;
 using Assecor.Backend.Dal.Contracts;
+using Assecor.Backend.Domain;
 using Assecor.Backend.Domain.DalModels;
 using Assecor.Backend.Domain.Enums;
 using Assecor.Backend.Domain.Mapping;
@@ -29,13 +30,13 @@ namespace Assecor.Backend.Dal.Provider
             return matchingPersons;
         }
 
-        public async Task<CsvPerson> GetPersonByIdAsync(int id)
+        public async Task<Maybe<CsvPerson>> GetPersonByIdAsync(int id)
         {
             var persons = await GetPersonsAsync();
 
             var person = persons.FirstOrDefault(x => x.Id == id);
 
-            return person ?? throw new KeyNotFoundException($"No person matching id '{id}' found.");
+            return Maybe<CsvPerson>.From(person);
         }
 
         private async Task<List<CsvPerson>> GetPersonsAsync()

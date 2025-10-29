@@ -1,4 +1,5 @@
 ﻿using System.Net.Mime;
+using Assecor.Backend.Api.Responses;
 using Assecor.Backend.Domain.ApiModels;
 using Assecor.Backend.Domain.Enums;
 using Assecor.Backend.Domain.Mapping;
@@ -9,7 +10,7 @@ namespace Assecor.Backend.Api.Controllers
 {
     [ApiController]
     [Route("api/persons")]
-    public class PersonController(IPersonService personService, ILogger<PersonController> logger) : ControllerBase
+    public class PersonController(IPersonService personService, ILogger<PersonController> logger) : RestServerControllerBase
     {
         /// <summary>
         /// Returns all persons from the data storage
@@ -22,23 +23,24 @@ namespace Assecor.Backend.Api.Controllers
         {
             var persons = await personService.GetAllPersonsAsync();
             var apiPersons = ApiPersonMapper.MapFromDomainPersons(persons);
-            return new OkObjectResult(apiPersons);
+            return RestServerOk(apiPersons);
         }
 
         [HttpGet]
         [Route("color/{color}")]
         [Produces(MediaTypeNames.Application.Json)]
         [ProducesResponseType(typeof(List<ApiPerson>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(List<ApiPerson>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetPersonsByColorAsync(int color)
         {
-            if (Enum.IsDefined(typeof(Color), color))
+            if (!Enum.IsDefined(typeof(Color), color))
             {
-                var persons = await personService.GetPersonsByColorAsync((Color)color);
-                var apiPersons = ApiPersonMapper.MapFromDomainPersons(persons);
-                return new OkObjectResult(apiPersons);
+                return RestServerBadRequest($"Color {color} is not valid");
             }
+            var persons = await personService.GetPersonsByColorAsync((Color)color);
+            var apiPersons = ApiPersonMapper.MapFromDomainPersons(persons);
+            return RestServerOk(apiPersons);
 
-            return new BadRequestObjectResult($"Color {color} is not valid");
         }
 
         [HttpGet]
@@ -48,8 +50,8 @@ namespace Assecor.Backend.Api.Controllers
         public async Task<IActionResult> GetPersonByIdAsync(int id)
         {
             var person = await personService.GetPersonByIdAsync(id);
-            var apiPerson = ApiPersonMapper.MapFromDomainPerson(person);
-            return new OkObjectResult(apiPerson);
+            var apiPerson = person.Map(ApiPersonMapper.MapFromDomainPerson);
+            return MapToResult(apiPerson, $"No person with id '{id}' could be found!");
         }
     }
 }

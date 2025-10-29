@@ -122,5 +122,28 @@ namespace Assecor.Backend.Test.ProviderTests
                 Arg.Any<Exception>(),
                 Arg.Any<Func<object, Exception, string>>()!);
         }
+
+        [Fact]
+        public async Task GetById_Should_Return_Correct_Person()
+        {
+            var expectedName = "Max";
+            var id = 1;
+            SetupReaderMock();
+
+            var result = await _sut.GetPersonByIdAsync(id);
+            result.HasValue.ShouldBeTrue();
+            result.Value.Name.ShouldBe(expectedName);
+        }
+
+        [Fact]
+        public async Task GetById_Should_Return_Maybe_None()
+        {
+            
+            var id = 123;
+            SetupReaderMock();
+
+            var result = await _sut.GetPersonByIdAsync(id);
+            result.HasValue.ShouldBeFalse();
+        }
     }
 }

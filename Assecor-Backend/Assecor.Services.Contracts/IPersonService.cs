@@ -1,4 +1,5 @@
-﻿using Assecor.Backend.Domain.BackendModels;
+﻿using Assecor.Backend.Domain;
+using Assecor.Backend.Domain.BackendModels;
 using Assecor.Backend.Domain.Enums;
 
 namespace Assecor.Services.Contracts
@@ -23,6 +24,6 @@ namespace Assecor.Services.Contracts
         /// </summary>
         /// <param name="id">the id to match</param>
         /// <returns></returns>
-        Task<Person> GetPersonByIdAsync(int id);
+        Task<Maybe<Person>> GetPersonByIdAsync(int id);
     }
 }

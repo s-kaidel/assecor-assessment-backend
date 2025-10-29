@@ -10,7 +10,6 @@ namespace Assecor.Backend.Domain.Mapping
             var persons = csvPersons.Select(MapFromCsvPerson).ToList();
             return persons;
         }
-
         public static Person MapFromCsvPerson(CsvPerson csvPerson)
         {
             var person = new Person()
