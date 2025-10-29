@@ -29,11 +29,6 @@ namespace Assecor.Backend.Api
                     title = "Csv parsing failed.";
                     break;
 
-                case KeyNotFoundException:
-                    statusCode = StatusCodes.Status404NotFound;
-                    title = "Resource not found.";
-                    break;
-
                 case FileNotFoundException:
                     title = "Could not find csv file";
                     break;
