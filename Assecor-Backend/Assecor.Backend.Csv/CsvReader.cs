@@ -10,7 +10,9 @@ namespace Assecor.Backend.CsvAccess
 {
     public class CsvReader<T>(ILogger<CsvReader<T>> logger, IOptions<CsvOptions> options) : ICsvReader<T>
     {
-        private readonly string _filePath = options.Value.CsvFilePath;
+        private readonly ILogger<CsvReader<T>> _logger = logger;
+        private readonly string _fileName = options.Value.FileName;
+
         public async Task<List<T>> ReadFromCsvAsync(Func<IEnumerable<string>, int, T?> mappingFunc)
         {
             CheckFilePath();
@@ -20,13 +22,13 @@ namespace Assecor.Backend.CsvAccess
                 MissingFieldFound = null // ignore missing fields
             };
 
-            logger.LogInformation($"Reading csv file from location: {_filePath}");
+            _logger.LogInformation("Beginning csv parsing.");
             var items = new List<T>();
             var rowNumber = 1;
 
             try
             {
-                using var reader = new StreamReader(_filePath);
+                using var reader = new StreamReader(GetFilePath());
                 using var csv = new CsvReader(reader, config);
 
                 while (await csv.ReadAsync())
@@ -50,11 +52,16 @@ namespace Assecor.Backend.CsvAccess
         }
         private void CheckFilePath()
         {
-            if (File.Exists(_filePath))
+            if (File.Exists(GetFilePath()))
             {
                 return;
             }
             throw new FileNotFoundException("Csv file not found, please review file location in appSettings");
+        }
+
+        private string GetFilePath()
+        {
+            return Path.Combine(AppContext.BaseDirectory, _fileName);
         }
     }
 }

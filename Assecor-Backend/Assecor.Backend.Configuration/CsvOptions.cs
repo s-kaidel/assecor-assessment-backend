@@ -2,6 +2,6 @@
 {
     public class CsvOptions
     {
-        public string CsvFilePath { get; set; } = string.Empty;
+        public string FileName { get; set; } = string.Empty;
     }
 }

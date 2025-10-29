@@ -24,4 +24,10 @@
     <ProjectReference Include="..\Assecor.Backend.Dal\Assecor.Backend.Dal.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="test.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
