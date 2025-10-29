@@ -33,10 +33,14 @@ namespace Assecor.Backend.CsvAccess
 
                 while (await csv.ReadAsync())
                 {
-                    
                     var fields = csv.Parser.Record ?? [];
                     var item = mappingFunc.Invoke(fields, rowNumber);
-                    if (item != null)
+
+                    if (item == null)
+                    {
+                        _logger.LogInformation($"Row {rowNumber} could not be parsed, row is skipped.");
+                    }
+                    else
                     {
                         items.Add(item);
                     }
