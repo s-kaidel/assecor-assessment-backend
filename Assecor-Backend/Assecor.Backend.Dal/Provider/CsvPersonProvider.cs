@@ -12,7 +12,7 @@ namespace Assecor.Backend.Dal.Provider
         public async Task<List<CsvPerson>> GetAllPersonsAsync()
         {
             var persons = await GetPersonsAsync();
-            logger.LogInformation("Found {Count} person records", persons.Count);
+            logger.LogInformation("Found {Count} person", persons.Count);
             return persons;
         }
 
