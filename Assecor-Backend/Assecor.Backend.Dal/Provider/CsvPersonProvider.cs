@@ -3,6 +3,7 @@ using Assecor.Backend.Dal.Contracts;
 using Assecor.Backend.Domain;
 using Assecor.Backend.Domain.DalModels;
 using Assecor.Backend.Domain.Enums;
+using Assecor.Backend.Domain.Extensions;
 using Assecor.Backend.Domain.Mapping;
 using Microsoft.Extensions.Logging;
 
@@ -10,10 +11,13 @@ namespace Assecor.Backend.Dal.Provider
 {
     public class CsvPersonProvider(ILogger<CsvPersonProvider> logger, ICsvReader<CsvPerson> reader) : ICsvPersonProvider
     {
+        private readonly ILogger<CsvPersonProvider> _logger = logger;
+        private readonly ICsvReader<CsvPerson> _reader = reader;
+
         public async Task<List<CsvPerson>> GetAllPersonsAsync()
         {
             var persons = await GetPersonsAsync();
-            logger.LogInformation("Found {Count} person", persons.Count);
+            _logger.LogInformation("Found {Count} person", persons.Count);
             return persons;
         }
 
@@ -25,7 +29,7 @@ namespace Assecor.Backend.Dal.Provider
                 .Where(x => x.Color != null && x.Color == color)
                 .ToList();
 
-            logger.LogInformation("Found {MatchingPersonsCount} persons for color '{Color}'", matchingPersons.Count, color.ToString());
+            _logger.LogInformation("Found {MatchingPersonsCount} persons for color '{Color}'", matchingPersons.Count, color.ToString());
 
             return matchingPersons;
         }
@@ -36,12 +40,16 @@ namespace Assecor.Backend.Dal.Provider
 
             var person = persons.FirstOrDefault(x => x.Id == id);
 
-            return Maybe<CsvPerson>.From(person);
+            var personMaybe = Maybe<CsvPerson>.From(person);
+
+            _logger.LogMaybeResult(personMaybe, id);
+
+            return personMaybe;
         }
 
         private async Task<List<CsvPerson>> GetPersonsAsync()
         {
-            return await reader.ReadFromCsvAsync(CsvPersonMapper.MapFromCsvRow);
+            return await _reader.ReadFromCsvAsync(CsvPersonMapper.MapFromCsvRow);
         }
     }
 }

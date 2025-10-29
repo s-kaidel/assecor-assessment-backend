@@ -1,17 +1,18 @@
-﻿using System.Net.Mime;
-using Assecor.Backend.Api.Responses;
-using Assecor.Backend.Domain.ApiModels;
+﻿using Assecor.Backend.Domain.ApiModels;
 using Assecor.Backend.Domain.Enums;
 using Assecor.Backend.Domain.Mapping;
 using Assecor.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Mime;
 
 namespace Assecor.Backend.Api.Controllers
 {
     [ApiController]
     [Route("api/persons")]
-    public class PersonController(IPersonService personService, ILogger<PersonController> logger) : RestServerControllerBase
+    public class PersonController(IPersonService personService) : RestServerControllerBase
     {
+        private readonly IPersonService _personService = personService;
+
         /// <summary>
         /// Returns all persons from the data storage
         /// </summary>
@@ -21,7 +22,7 @@ namespace Assecor.Backend.Api.Controllers
         [ProducesResponseType(typeof(List<ApiPerson>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetPersonsAsync()
         {
-            var persons = await personService.GetAllPersonsAsync();
+            var persons = await _personService.GetAllPersonsAsync();
             var apiPersons = ApiPersonMapper.MapFromDomainPersons(persons);
             return RestServerOk(apiPersons);
         }
@@ -37,7 +38,7 @@ namespace Assecor.Backend.Api.Controllers
             {
                 return RestServerBadRequest($"Color {color} is not valid");
             }
-            var persons = await personService.GetPersonsByColorAsync((Color)color);
+            var persons = await _personService.GetPersonsByColorAsync((Color)color);
             var apiPersons = ApiPersonMapper.MapFromDomainPersons(persons);
             return RestServerOk(apiPersons);
 
@@ -49,7 +50,7 @@ namespace Assecor.Backend.Api.Controllers
         [ProducesResponseType(typeof(ApiPerson), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetPersonByIdAsync(int id)
         {
-            var person = await personService.GetPersonByIdAsync(id);
+            var person = await _personService.GetPersonByIdAsync(id);
             var apiPerson = person.Map(ApiPersonMapper.MapFromDomainPerson);
             return MapToResult(apiPerson, $"No person with id '{id}' could be found!");
         }

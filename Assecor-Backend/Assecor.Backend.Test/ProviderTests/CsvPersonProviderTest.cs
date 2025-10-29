@@ -145,5 +145,23 @@ namespace Assecor.Backend.Test.ProviderTests
             var result = await _sut.GetPersonByIdAsync(id);
             result.HasValue.ShouldBeFalse();
         }
+
+        [Fact]
+        public async Task GetById_Should_Log_If_None_Found()
+        {
+            var id = 123;
+            var expectedLogMessage = $"No entity of type '{nameof(CsvPerson)}' with key '{id}' found!";
+            
+            SetupReaderMock();
+
+            await _sut.GetPersonByIdAsync(id);
+
+            _loggerMock.Received().Log(
+                LogLevel.Information,
+                Arg.Any<EventId>(),
+                Arg.Is<object>(v => v.ToString()!.Contains(expectedLogMessage)),
+                Arg.Any<Exception>(),
+                Arg.Any<Func<object, Exception, string>>()!);
+        }
     }
 }
