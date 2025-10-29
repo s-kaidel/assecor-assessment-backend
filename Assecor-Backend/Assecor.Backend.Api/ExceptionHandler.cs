@@ -1,4 +1,5 @@
-﻿using Assecor.Backend.Domain.Exceptions;
+﻿using Assecor.Backend.Api.Responses;
+using Assecor.Backend.Domain.Exceptions;
 using Newtonsoft.Json;
 
 namespace Assecor.Backend.Api
@@ -40,12 +41,12 @@ namespace Assecor.Backend.Api
 
             logger.LogError(ex, ex.Message);
 
-            var problem = new
+            var problem = new RestServerErrorResponse()
             {
-                title,
-                status = statusCode,
-                detail = ex.Message,
-                traceId = context.TraceIdentifier
+                Title = title,
+                Details = ex.Message,
+                StatusCode = statusCode,
+                TraceId = context.TraceIdentifier
             };
 
             context.Response.ContentType = "application/json";
