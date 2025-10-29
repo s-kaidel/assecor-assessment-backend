@@ -1,8 +1,6 @@
-﻿using System.Net;
-using Assecor.Backend.Api.Responses;
+﻿using Assecor.Backend.Api.Responses;
 using Assecor.Backend.Domain;
 using Microsoft.AspNetCore.Mvc;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Assecor.Backend.Api.Controllers
 {
