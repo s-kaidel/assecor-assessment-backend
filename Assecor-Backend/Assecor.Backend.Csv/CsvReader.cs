@@ -52,6 +52,7 @@ namespace Assecor.Backend.CsvAccess
                 throw new CsvReaderException($"Csv reading error in row {rowNumber}: {ex.Message}");
             }
 
+            _logger.LogInformation("Csv parsing successful");
             return items;
         }
         private void CheckFilePath()
