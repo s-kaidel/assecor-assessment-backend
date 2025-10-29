@@ -21,10 +21,11 @@ namespace Assecor.Backend.Test
         {
             int? value = null;
             var maybe = Maybe.From(value);
+            var expectedMessage = "Maybe has no value";
 
             maybe.HasValue.ShouldBeFalse();
             var act = () => maybe.Value.ShouldBe(value);
-            act.ShouldThrow<InvalidOperationException>("Maybe has no value");
+            act.ShouldThrow<InvalidOperationException>(expectedMessage);
         }
 
         [Fact]
@@ -42,9 +43,10 @@ namespace Assecor.Backend.Test
         {
             Func<Person, ApiPerson> mappingFunc = null!;
             var maybe = Maybe.From(new Person());
-            Func<object?> func = () => maybe.Map(mappingFunc!);
+            var expectedMessage = $"{nameof(mappingFunc)}";
+            Func<object?> func = () => maybe.Map(mappingFunc);
 
-            func.ShouldThrow<ArgumentNullException>($"{nameof(mappingFunc)}");
+            func.ShouldThrow<ArgumentNullException>(expectedMessage);
         }
     }
 }
