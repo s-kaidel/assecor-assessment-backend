@@ -9,6 +9,8 @@
             ? _value 
             : throw new InvalidOperationException("Maybe has no value");
 
+        public string GetTypeName() => typeof(T).Name;
+
         private Maybe(T value)
         {
             _value = value;
