@@ -1,4 +1,4 @@
-﻿namespace Assecor.Backend.Domain
+﻿namespace Assecor.Backend.Domain.Maybe
 {
     public readonly struct Maybe<T>
     {
@@ -29,5 +29,10 @@
                     ? new Maybe<TOut>(mappingFunc(_value)) 
                     : Maybe<TOut>.None();
         }
+    }
+
+    public static class Maybe
+    {
+        public static Maybe<T> From<T>(T? value) => Maybe<T>.From(value);
     }
 }

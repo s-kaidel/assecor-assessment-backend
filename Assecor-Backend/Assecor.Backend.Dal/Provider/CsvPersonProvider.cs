@@ -1,10 +1,10 @@
 ﻿using Assecor.Backend.CsvAccess;
 using Assecor.Backend.Dal.Contracts;
-using Assecor.Backend.Domain;
 using Assecor.Backend.Domain.DalModels;
 using Assecor.Backend.Domain.Enums;
 using Assecor.Backend.Domain.Extensions;
 using Assecor.Backend.Domain.Mapping;
+using Assecor.Backend.Domain.Maybe;
 using Microsoft.Extensions.Logging;
 
 namespace Assecor.Backend.Dal.Provider

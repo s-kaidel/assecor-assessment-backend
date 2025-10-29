@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Assecor.Backend.Domain.Maybe;
+using Microsoft.Extensions.Logging;
 
 namespace Assecor.Backend.Domain.Extensions
 {

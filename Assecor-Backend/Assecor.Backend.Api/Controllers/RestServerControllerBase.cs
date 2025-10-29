@@ -1,5 +1,5 @@
 ﻿using Assecor.Backend.Api.Responses;
-using Assecor.Backend.Domain;
+using Assecor.Backend.Domain.Maybe;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Assecor.Backend.Api.Controllers

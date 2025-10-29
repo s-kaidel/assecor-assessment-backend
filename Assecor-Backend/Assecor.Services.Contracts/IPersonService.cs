@@ -1,6 +1,6 @@
-﻿using Assecor.Backend.Domain;
-using Assecor.Backend.Domain.BackendModels;
+﻿using Assecor.Backend.Domain.BackendModels;
 using Assecor.Backend.Domain.Enums;
+using Assecor.Backend.Domain.Maybe;
 
 namespace Assecor.Services.Contracts
 {

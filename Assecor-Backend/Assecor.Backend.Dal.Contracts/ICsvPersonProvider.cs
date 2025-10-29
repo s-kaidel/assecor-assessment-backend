@@ -1,6 +1,6 @@
-﻿using Assecor.Backend.Domain;
-using Assecor.Backend.Domain.DalModels;
+﻿using Assecor.Backend.Domain.DalModels;
 using Assecor.Backend.Domain.Enums;
+using Assecor.Backend.Domain.Maybe;
 
 namespace Assecor.Backend.Dal.Contracts
 {
