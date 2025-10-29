@@ -56,7 +56,7 @@ namespace Assecor.Backend.CsvAccess
             {
                 return;
             }
-            throw new FileNotFoundException("Csv file not found, please review file location in appSettings");
+            throw new FileNotFoundException("Csv file not found, please review file name in appSettings");
         }
 
         private string GetFilePath()
