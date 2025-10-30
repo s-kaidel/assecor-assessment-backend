@@ -1,7 +1,7 @@
 ﻿using Assecor.Backend.CsvAccess;
 using Assecor.Backend.Domain.DalModels;
 using Assecor.Backend.Domain.Exceptions;
-using Assecor.Backend.Domain.Mapping;
+using Assecor.Backend.Mappings;
 using Microsoft.Extensions.Logging;
 
 namespace Assecor.Backend.Test.CsvReaderTest
@@ -11,6 +11,7 @@ namespace Assecor.Backend.Test.CsvReaderTest
         private readonly string _filesDirectory = "CsvReaderTest//TestFiles";
         private readonly ICsvReader<CsvPerson> _sut;
         private readonly ILogger<CsvReader<CsvPerson>> _loggerMock = Substitute.For<ILogger<CsvReader<CsvPerson>>>();
+        private readonly ICsvPersonMapper _mapperMock = Substitute.For<ICsvPersonMapper>();
 
         public CsvReaderTest()
         {
@@ -22,11 +23,19 @@ namespace Assecor.Backend.Test.CsvReaderTest
             return Path.Combine(AppContext.BaseDirectory, _filesDirectory, fileName);
         }
 
+        private void SetupMapperReturn(CsvPerson? person)
+        {
+            _mapperMock
+                .MapFromCsvRow(Arg.Any<IEnumerable<string>>(), Arg.Any<int>())
+                .Returns(person);
+        }
+
         [Fact]
         public async Task Should_Read_File()
         {
-            var filePath = GetCsvFilePath("missing_lines.csv");
-            var act = async () =>  await _sut.ReadFromCsvAsync(CsvPersonMapper.MapFromCsvRow, filePath);
+            SetupMapperReturn(new());
+            var filePath = GetCsvFilePath("persons.csv");
+            var act = async () =>  await _sut.ReadFromCsvAsync(_mapperMock.MapFromCsvRow, filePath);
 
             await act.ShouldNotThrowAsync();
         }
@@ -34,10 +43,11 @@ namespace Assecor.Backend.Test.CsvReaderTest
         [Fact]
         public async Task Should_Read_All_Items()
         {
+            SetupMapperReturn(new());
             var expectedAmount = 11;
             var filePath = GetCsvFilePath("persons.csv");
 
-            var persons = await _sut.ReadFromCsvAsync(CsvPersonMapper.MapFromCsvRow, filePath);
+            var persons = await _sut.ReadFromCsvAsync(_mapperMock.MapFromCsvRow, filePath);
 
             persons.Count.ShouldBe(expectedAmount);
         }
@@ -45,20 +55,23 @@ namespace Assecor.Backend.Test.CsvReaderTest
         [Fact]
         public async Task Should_Skip_Empty_Lines()
         {
+            SetupMapperReturn(new());
             var filePath = GetCsvFilePath("missing_lines.csv");
             var expectedAmount = 8;
-            var result = await _sut.ReadFromCsvAsync(CsvPersonMapper.MapFromCsvRow, filePath);
+            var result = await _sut.ReadFromCsvAsync(_mapperMock.MapFromCsvRow, filePath);
             result.Count.ShouldBe(expectedAmount);
         }
 
         [Fact]
         public async Task Should_Log_Not_Parsable_Rows()
         {
+            SetupMapperReturn(null);
+
             //file contains 3 lines, each will return null via mapping
             var filePath = GetCsvFilePath("notParsableLines.csv");
-            Func<IEnumerable<string>, int, CsvPerson?> mappingFunc = (_, _) => null;
+           
 
-            await _sut.ReadFromCsvAsync(mappingFunc, filePath);
+            await _sut.ReadFromCsvAsync(_mapperMock.MapFromCsvRow, filePath);
             
             var notParsableLinesAmount = 3;
             var expectedLogMessage = $"could not be parsed to object of type {nameof(CsvPerson)}, row is skipped";
@@ -73,11 +86,12 @@ namespace Assecor.Backend.Test.CsvReaderTest
         [Fact]
         public async Task Should_Log_Parsing_Exceptions()
         {
+            SetupMapperReturn(new());
             //file contains not closed quotation marks in line 1, this should raise an exception
             var filePath = GetCsvFilePath("illFormattedLines.csv");
             var expectedError = "Csv reading error in row 1:";
 
-            var act = async () => await _sut.ReadFromCsvAsync(CsvPersonMapper.MapFromCsvRow, filePath);
+            var act = async () => await _sut.ReadFromCsvAsync(_mapperMock.MapFromCsvRow, filePath);
 
             var ex = await act.ShouldThrowAsync<CsvReaderException>();
             ex.Message.ShouldStartWith(expectedError);

@@ -1,7 +1,7 @@
 ﻿using Assecor.Backend.Domain.BackendModels;
 using Assecor.Backend.Domain.DalModels;
 using Assecor.Backend.Domain.Enums;
-using Assecor.Backend.Domain.Mapping;
+using Assecor.Backend.Mappings;
 
 namespace Assecor.Backend.Test.MappingTests
 {

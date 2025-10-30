@@ -1,7 +1,7 @@
 ﻿using Assecor.Backend.Domain.ApiModels;
 using Assecor.Backend.Domain.BackendModels;
 
-namespace Assecor.Backend.Domain.Mapping
+namespace Assecor.Backend.Mappings
 {
     public static class ApiPersonMapper
     {

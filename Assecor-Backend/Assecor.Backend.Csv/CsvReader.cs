@@ -36,7 +36,8 @@ namespace Assecor.Backend.CsvAccess
 
                     if (item == null)
                     {
-                        _logger.LogInformation($"Row {rowNumber} could not be parsed to object of type {typeof(T).Name}, row is skipped.");
+                        _logger.LogInformation("Row {row} could not be parsed to object of type {typeName}, row is skipped.", rowNumber, typeof(T).Name);
+                        
                     }
                     else
                     {

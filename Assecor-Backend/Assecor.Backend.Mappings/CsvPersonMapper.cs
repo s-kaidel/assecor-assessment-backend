@@ -1,9 +1,10 @@
 ﻿using Assecor.Backend.Domain.DalModels;
 using Assecor.Backend.Domain.Enums;
+using Microsoft.Extensions.Logging;
 
-namespace Assecor.Backend.Domain.Mapping
+namespace Assecor.Backend.Mappings
 {
-    public static class CsvPersonMapper
+    public class CsvPersonMapper(ILogger<CsvPersonMapper> logger) : ICsvPersonMapper
     {
         /// <summary>
         /// Converts a single row to a CsvPerson, missing or faulty values will be null
@@ -11,7 +12,7 @@ namespace Assecor.Backend.Domain.Mapping
         /// <param name="fields">values of the currently read row</param>
         /// <param name="rowNumber">the current row</param>
         /// <returns></returns>
-        public static CsvPerson? MapFromCsvRow(IEnumerable<string> fields, int rowNumber)
+        public CsvPerson? MapFromCsvRow(IEnumerable<string> fields, int rowNumber)
         {
             string? name = null;
             string? lastName = null;

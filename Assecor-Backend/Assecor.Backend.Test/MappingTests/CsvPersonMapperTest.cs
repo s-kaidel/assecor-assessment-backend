@@ -1,14 +1,24 @@
 ﻿using Assecor.Backend.Domain.Enums;
-using Assecor.Backend.Domain.Mapping;
+using Assecor.Backend.Mappings;
+using Castle.Core.Logging;
+using Microsoft.Extensions.Logging;
 
 namespace Assecor.Backend.Test.MappingTests
 {
     public class CsvPersonMapperTest
     {
+        private readonly ICsvPersonMapper _sut;
+        private readonly ILogger<CsvPersonMapper> _loggerMock = Substitute.For<ILogger<CsvPersonMapper>>();
+
+        public CsvPersonMapperTest()
+        {
+            _sut = new CsvPersonMapper(_loggerMock);
+        }
+
         [Fact]
         public void Should_Return_Null_On_Empty_Fields()
         {
-            var person = CsvPersonMapper.MapFromCsvRow([], 1);
+            var person = _sut.MapFromCsvRow([], 1);
             person.ShouldBeNull();
         }
 
@@ -66,7 +76,7 @@ namespace Assecor.Backend.Test.MappingTests
             var rowNumber = 1;
             var fields = GetFieldsList(name, lastName, location, color);
 
-            var person = CsvPersonMapper.MapFromCsvRow(fields, rowNumber);
+            var person = _sut.MapFromCsvRow(fields, rowNumber);
 
             person.ShouldNotBeNull();
             person.Id.ShouldBe(rowNumber);

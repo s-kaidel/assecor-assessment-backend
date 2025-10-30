@@ -1,9 +1,8 @@
 ﻿using Assecor.Backend.Configuration;
 using Assecor.Backend.CsvAccess;
 using Assecor.Backend.Dal.IoC;
+using Assecor.Backend.Mappings;
 using Assecor.Services.IoC;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace Assecor.Backend.Api
 {
@@ -24,6 +23,7 @@ namespace Assecor.Backend.Api
             services.AddHttpContextAccessor();
             services.AddHttpClient();
             services.AddCsvReader();
+            services.AddMappings();
 
             services.Configure<CsvSettings>(Configuration.GetSection(nameof(CsvSettings)));
         }

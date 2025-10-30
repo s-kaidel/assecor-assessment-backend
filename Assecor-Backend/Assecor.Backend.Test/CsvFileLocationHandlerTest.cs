@@ -6,7 +6,7 @@ namespace Assecor.Backend.Test
 {
     public class CsvFileLocationHandlerTest
     {
-        private string _validFileName = "persons.csv";
+        private readonly string _validFileName = "persons.csv";
         private ICsvFileLocationHandler? _sut;
         private readonly string _filesDirectory = Path.Combine(AppContext.BaseDirectory, "CsvReaderTest", "TestFiles");
         private readonly IOptions<CsvSettings> _settings = Substitute.For<IOptions<CsvSettings>>();

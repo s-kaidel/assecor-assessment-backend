@@ -1,7 +1,7 @@
 ﻿using Assecor.Backend.Domain.BackendModels;
 using Assecor.Backend.Domain.DalModels;
 
-namespace Assecor.Backend.Domain.Mapping
+namespace Assecor.Backend.Mappings
 {
     public static class PersonMapper
     {
