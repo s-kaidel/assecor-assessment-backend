@@ -22,7 +22,6 @@ namespace Assecor.Backend.Dal.Provider
 
         /// <summary>
         /// Returns all currently available persons from the csv data file.
-        /// Persons must have a name and last name, otherwise they are skipped.
         /// </summary>
         /// <returns></returns>
         public async Task<List<CsvPerson>> GetAllPersonsAsync()
@@ -34,7 +33,6 @@ namespace Assecor.Backend.Dal.Provider
 
         /// <summary>
         /// Returns all persons whose favorite color matches provided color.
-        /// Persons must have a name and last name, otherwise they are skipped.
         /// </summary>
         /// <param name="color">the color to match</param>
         /// <returns></returns>
@@ -53,7 +51,6 @@ namespace Assecor.Backend.Dal.Provider
 
         /// <summary>
         /// Returns the person matching provided id.
-        /// Persons must have a name and last name, otherwise they are skipped.
         /// </summary>
         /// <param name="id">the id to match</param>
         /// <returns></returns>

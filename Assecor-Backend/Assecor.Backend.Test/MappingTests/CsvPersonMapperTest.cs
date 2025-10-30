@@ -24,7 +24,7 @@ namespace Assecor.Backend.Test.MappingTests
             List<string> fields = [name];
             AddString(fields, lastName);
             AddString(fields, location);
-            AddString(fields, color?.ToString());
+            AddString(fields, color);
             return fields;
         }
 
@@ -61,6 +61,12 @@ namespace Assecor.Backend.Test.MappingTests
             //location has faulty zipCode
             {"name", "nachname", "1abcd metropole", "1", null, "metropole", Color.Blau},
 
+            //missing lastName
+            {"name", null, "11111 metropole", "1", 11111, "metropole", Color.Blau},
+
+            //name only
+            {"name", null, null, null, null, null, null},
+
             //name nad lastName only
             {"name", "lastName", null, null, null, null, null},
         };
@@ -82,15 +88,6 @@ namespace Assecor.Backend.Test.MappingTests
             person.ZipCode.ShouldBe(expectedZipCode);
             person.City.ShouldBe(expectedCity);
             person.Color.ShouldBe(expectedColor);
-        }
-
-        [Fact]
-        public void Person_Should_Be_Null_If_No_Name_And_LastName_Present()
-        {
-            string[] fields = ["name"];
-
-            var person = _sut.MapFromCsvRow(fields, 1);
-            person.ShouldBeNull();
         }
 
         [Fact]

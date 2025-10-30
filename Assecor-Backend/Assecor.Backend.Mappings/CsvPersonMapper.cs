@@ -11,7 +11,7 @@ namespace Assecor.Backend.Mappings
         private readonly IValidationService _validationService = validationService;
 
         /// <summary>
-        /// Converts a single row to a CsvPerson, missing or faulty values will be null. At least a name and last name are expected, otherwise will be null;
+        /// Converts a single row to a CsvPerson, missing or faulty values will be null.
         /// </summary>
         /// <param name="fields">values of the currently read row</param>
         /// <param name="rowNumber">the current row</param>
@@ -76,8 +76,8 @@ namespace Assecor.Backend.Mappings
                 ZipCode = zipCode,
                 Color = color,
             };
-            
-            return IsValidPerson(person, rowNumber) ? person : null;
+
+            return person;
         }
 
         private (int? zipCode, string? city) ParseLocation(string location, int rowNumber)
@@ -116,20 +116,6 @@ namespace Assecor.Backend.Mappings
             }
             _logger.LogInformation("Value '{color}' in row {rowNumber} is no value of enum '{enum}'", color, rowNumber, nameof(Color));
             return (false, null);
-        }
-
-        private bool IsValidPerson(CsvPerson person, int rowNumber)
-        {
-            var hasName = !string.IsNullOrEmpty(person.Name);
-            var hasLastName = !string.IsNullOrEmpty(person.LastName);
-
-            var valid = hasName && hasLastName;
-            if (!valid)
-            {
-                _logger.LogInformation("Person in row {row} has no name and last name, person is skipped", rowNumber);
-            }
-
-            return valid;
         }
     }
 }
