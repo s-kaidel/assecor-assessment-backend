@@ -2,7 +2,7 @@
 using Assecor.Backend.Domain.Enums;
 using Assecor.Backend.Domain.Maybe;
 
-namespace Assecor.Services.Contracts
+namespace Assecor.Backend.Services.Contracts
 {
     public interface IPersonService
     {

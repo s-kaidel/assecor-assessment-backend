@@ -1,6 +1,6 @@
 ﻿using Assecor.Backend.Domain.DalModels;
 using Assecor.Backend.Domain.Enums;
-using Assecor.Services.Contracts;
+using Assecor.Backend.Services.Contracts;
 using Microsoft.Extensions.Logging;
 
 namespace Assecor.Backend.Mappings

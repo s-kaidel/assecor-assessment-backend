@@ -2,7 +2,7 @@
 using Assecor.Backend.CsvAccess;
 using Assecor.Backend.Dal.IoC;
 using Assecor.Backend.Mappings;
-using Assecor.Services.IoC;
+using Assecor.Backend.Services.IoC;
 
 namespace Assecor.Backend.Api
 {

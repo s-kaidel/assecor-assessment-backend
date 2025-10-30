@@ -1,4 +1,4 @@
-﻿using Assecor.Services.Contracts;
+﻿using Assecor.Backend.Services.Contracts;
 
 namespace Assecor.Backend.Services
 {

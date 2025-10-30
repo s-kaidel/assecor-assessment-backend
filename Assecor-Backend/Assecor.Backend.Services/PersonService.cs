@@ -3,7 +3,7 @@ using Assecor.Backend.Domain.BackendModels;
 using Assecor.Backend.Domain.Enums;
 using Assecor.Backend.Domain.Maybe;
 using Assecor.Backend.Mappings;
-using Assecor.Services.Contracts;
+using Assecor.Backend.Services.Contracts;
 
 namespace Assecor.Backend.Services
 {

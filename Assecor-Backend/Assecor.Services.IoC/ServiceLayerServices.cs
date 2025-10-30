@@ -1,8 +1,7 @@
-﻿using Assecor.Backend.Services;
-using Assecor.Services.Contracts;
+﻿using Assecor.Backend.Services.Contracts;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Assecor.Services.IoC
+namespace Assecor.Backend.Services.IoC
 {
     public static class ServiceLayerServices
     {

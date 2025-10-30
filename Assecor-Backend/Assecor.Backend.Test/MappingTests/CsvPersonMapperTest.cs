@@ -1,6 +1,6 @@
 ﻿using Assecor.Backend.Domain.Enums;
 using Assecor.Backend.Mappings;
-using Assecor.Services.Contracts;
+using Assecor.Backend.Services.Contracts;
 using Microsoft.Extensions.Logging;
 
 namespace Assecor.Backend.Test.MappingTests

@@ -1,9 +1,9 @@
 ﻿using Assecor.Backend.Domain.ApiModels;
 using Assecor.Backend.Domain.Enums;
-using Assecor.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
 using Assecor.Backend.Mappings;
+using Assecor.Backend.Services.Contracts;
 
 namespace Assecor.Backend.Api.Controllers
 {
