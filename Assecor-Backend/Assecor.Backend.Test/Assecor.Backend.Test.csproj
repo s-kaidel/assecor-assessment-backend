@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="test.csv">
+    <None Update="CsvReaderTest\TestFiles\missing_lines.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -1,21 +1,18 @@
-﻿using Assecor.Backend.Configuration;
-using Assecor.Backend.Domain.Exceptions;
+﻿using Assecor.Backend.Domain.Exceptions;
 using CsvHelper;
 using CsvHelper.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using System.Globalization;
 
 namespace Assecor.Backend.CsvAccess
 {
-    public class CsvReader<T>(ILogger<CsvReader<T>> logger, IOptions<CsvOptions> options) : ICsvReader<T>
+    public class CsvReader<T>(ILogger<CsvReader<T>> logger) : ICsvReader<T>
     {
         private readonly ILogger<CsvReader<T>> _logger = logger;
-        private readonly string _fileName = options.Value.FileName;
 
-        public async Task<List<T>> ReadFromCsvAsync(Func<IEnumerable<string>, int, T?> mappingFunc)
+        public async Task<List<T>> ReadFromCsvAsync(Func<IEnumerable<string>, int, T?> mappingFunc, string filePath)
         {
-            CheckFilePath();
+            
             var config = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
                 HeaderValidated = null, // ignore missing headers
@@ -28,7 +25,7 @@ namespace Assecor.Backend.CsvAccess
 
             try
             {
-                using var reader = new StreamReader(GetFilePath());
+                using var reader = new StreamReader(filePath);
                 using var csv = new CsvReader(reader, config);
 
                 while (await csv.ReadAsync())
@@ -54,19 +51,6 @@ namespace Assecor.Backend.CsvAccess
 
             _logger.LogInformation("Csv parsing successful");
             return items;
-        }
-        private void CheckFilePath()
-        {
-            if (File.Exists(GetFilePath()))
-            {
-                return;
-            }
-            throw new FileNotFoundException("Csv file not found, please review file name in appSettings");
-        }
-
-        private string GetFilePath()
-        {
-            return Path.Combine(AppContext.BaseDirectory, _fileName);
         }
     }
 }

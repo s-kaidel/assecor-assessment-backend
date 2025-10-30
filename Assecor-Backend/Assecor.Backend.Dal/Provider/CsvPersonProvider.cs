@@ -1,4 +1,5 @@
-﻿using Assecor.Backend.CsvAccess;
+﻿using Assecor.Backend.Configuration;
+using Assecor.Backend.CsvAccess;
 using Assecor.Backend.Dal.Contracts;
 using Assecor.Backend.Domain.DalModels;
 using Assecor.Backend.Domain.Enums;
@@ -6,13 +7,16 @@ using Assecor.Backend.Domain.Extensions;
 using Assecor.Backend.Domain.Mapping;
 using Assecor.Backend.Domain.Maybe;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace Assecor.Backend.Dal.Provider
 {
-    public class CsvPersonProvider(ILogger<CsvPersonProvider> logger, ICsvReader<CsvPerson> reader) : ICsvPersonProvider
+    public class CsvPersonProvider(ILogger<CsvPersonProvider> logger, ICsvReader<CsvPerson> reader, ICsvFileLocationHandler fileLocationHandler, IOptions<CsvSettings> settings) : ICsvPersonProvider
     {
         private readonly ILogger<CsvPersonProvider> _logger = logger;
         private readonly ICsvReader<CsvPerson> _reader = reader;
+        private readonly ICsvFileLocationHandler _fileLocationHandler = fileLocationHandler;
+        private readonly CsvSettings _csvSettings = settings.Value;
 
         public async Task<List<CsvPerson>> GetAllPersonsAsync()
         {
@@ -49,7 +53,8 @@ namespace Assecor.Backend.Dal.Provider
 
         private async Task<List<CsvPerson>> GetPersonsAsync()
         {
-            return await _reader.ReadFromCsvAsync(CsvPersonMapper.MapFromCsvRow);
+            var filePath = _fileLocationHandler.GetCsvFilePath(_csvSettings.Files.Persons);
+            return await _reader.ReadFromCsvAsync(CsvPersonMapper.MapFromCsvRow, filePath);
         }
     }
 }

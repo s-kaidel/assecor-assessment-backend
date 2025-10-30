@@ -2,6 +2,6 @@
 {
     public interface ICsvReader<T>
     {
-        Task<List<T>> ReadFromCsvAsync(Func<IEnumerable<string>, int, T?> mappingFunc);
+        Task<List<T>> ReadFromCsvAsync(Func<IEnumerable<string>, int, T?> mappingFunc, string filePath);
     }
 }

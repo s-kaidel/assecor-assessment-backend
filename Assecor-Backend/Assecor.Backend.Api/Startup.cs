@@ -25,7 +25,7 @@ namespace Assecor.Backend.Api
             services.AddHttpClient();
             services.AddCsvReader();
 
-            services.Configure<CsvOptions>(Configuration.GetSection(nameof(CsvOptions)));
+            services.Configure<CsvSettings>(Configuration.GetSection(nameof(CsvSettings)));
         }
 
         public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)

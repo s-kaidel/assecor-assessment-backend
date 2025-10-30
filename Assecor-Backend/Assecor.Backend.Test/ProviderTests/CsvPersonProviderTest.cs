@@ -1,9 +1,11 @@
-﻿using Assecor.Backend.CsvAccess;
+﻿using Assecor.Backend.Configuration;
+using Assecor.Backend.CsvAccess;
 using Assecor.Backend.Dal.Contracts;
 using Assecor.Backend.Dal.Provider;
 using Assecor.Backend.Domain.DalModels;
 using Assecor.Backend.Domain.Enums;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace Assecor.Backend.Test.ProviderTests
 {
@@ -12,16 +14,19 @@ namespace Assecor.Backend.Test.ProviderTests
         private readonly ICsvPersonProvider _sut;
         private readonly ICsvReader<CsvPerson> _readerMock = Substitute.For<ICsvReader<CsvPerson>>();
         private readonly ILogger<CsvPersonProvider> _loggerMock = Substitute.For<ILogger<CsvPersonProvider>>();
+        private CsvSettings _settings = new();
+        private readonly IOptions<CsvSettings> _settingsMock = Substitute.For<IOptions<CsvSettings>>();
+        private readonly ICsvFileLocationHandler _fileHandlerMock = Substitute.For<ICsvFileLocationHandler>();
 
         public CsvPersonProviderTest()
         { 
-            _sut = new CsvPersonProvider(_loggerMock, _readerMock);
+            _sut = new CsvPersonProvider(_loggerMock, _readerMock, _fileHandlerMock, _settingsMock);
         }
 
         private void SetupReaderMock()
         {
             _readerMock
-            .ReadFromCsvAsync(Arg.Any<Func<IEnumerable<string>, int, CsvPerson>>())
+            .ReadFromCsvAsync(Arg.Any<Func<IEnumerable<string>, int, CsvPerson>>(), Arg.Any<string>())
             .Returns(Task.FromResult(_persons));
         }
 

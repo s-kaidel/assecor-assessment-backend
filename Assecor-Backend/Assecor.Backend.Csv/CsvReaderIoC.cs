@@ -1,5 +1,4 @@
-﻿using CsvHelper;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace Assecor.Backend.CsvAccess
 {
@@ -8,6 +7,7 @@ namespace Assecor.Backend.CsvAccess
         public static IServiceCollection AddCsvReader(this IServiceCollection services)
         {
             services.AddScoped(typeof(ICsvReader<>), typeof(CsvReader<>));
+            services.AddScoped<ICsvFileLocationHandler, CsvFileLocationHandler>();
             return services;
         }
     }
