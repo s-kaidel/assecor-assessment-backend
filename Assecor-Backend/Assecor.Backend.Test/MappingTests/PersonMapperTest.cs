@@ -1,5 +1,4 @@
-﻿using Assecor.Backend.Domain.BackendModels;
-using Assecor.Backend.Domain.DalModels;
+﻿using Assecor.Backend.Domain.DalModels;
 using Assecor.Backend.Domain.Enums;
 using Assecor.Backend.Mappings;
 
@@ -7,6 +6,7 @@ namespace Assecor.Backend.Test.MappingTests
 {
     public class PersonMapperTest
     {
+        private readonly IPersonMapper _sut = new PersonMapper();
         [Fact]
         public void Should_Map_Correct_Person()
         {
@@ -20,7 +20,7 @@ namespace Assecor.Backend.Test.MappingTests
                 Color = Color.Rot
             };
 
-            var person = PersonMapper.MapFromCsvPerson(csvPerson);
+            var person = _sut.MapFromCsvPerson(csvPerson);
 
             person.Id.ShouldBe(csvPerson.Id);
             person.Name.ShouldBe(csvPerson.Name);
@@ -55,7 +55,7 @@ namespace Assecor.Backend.Test.MappingTests
 
             var expectedCount = 2;
 
-            var persons = PersonMapper.MapFromCsvPersons([csvPerson1, csvPerson2]);
+            var persons = _sut.MapFromCsvPersons([csvPerson1, csvPerson2]);
             persons.Count.ShouldBe(expectedCount);
         }
     }

@@ -7,6 +7,7 @@ namespace Assecor.Backend.Mappings
         public static IServiceCollection AddMappings(this IServiceCollection services)
         {
             services.AddScoped<ICsvPersonMapper, CsvPersonMapper>();
+            services.AddScoped<IPersonMapper, PersonMapper>();
             return services;
         }
     }

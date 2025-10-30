@@ -3,14 +3,14 @@ using Assecor.Backend.Domain.DalModels;
 
 namespace Assecor.Backend.Mappings
 {
-    public static class PersonMapper
+    public class PersonMapper : IPersonMapper
     {
-        public static List<Person> MapFromCsvPersons(IEnumerable<CsvPerson> csvPersons)
+        public List<Person> MapFromCsvPersons(IEnumerable<CsvPerson> csvPersons)
         {
             var persons = csvPersons.Select(MapFromCsvPerson).ToList();
             return persons;
         }
-        public static Person MapFromCsvPerson(CsvPerson csvPerson)
+        public Person MapFromCsvPerson(CsvPerson csvPerson)
         {
             var person = new Person()
             {
