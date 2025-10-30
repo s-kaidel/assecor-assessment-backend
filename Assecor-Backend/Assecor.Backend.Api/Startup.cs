@@ -3,6 +3,7 @@ using Assecor.Backend.CsvAccess;
 using Assecor.Backend.Dal.IoC;
 using Assecor.Backend.Mappings;
 using Assecor.Backend.Services.IoC;
+using Microsoft.OpenApi.Models;
 
 namespace Assecor.Backend.Api
 {
@@ -20,6 +21,23 @@ namespace Assecor.Backend.Api
             services.AddCsvReader();
             services.AddMappings();
 
+            // swagger
+            services.AddEndpointsApiExplorer();
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Assessment Backend API",
+                    Version = "v1",
+                    Description = string.Empty,
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Sebastian Kaidel",
+                        Email = "sebastian.kaidel@gmail.com"
+                    }
+                });
+            });
+
             services.Configure<CsvSettings>(Configuration.GetSection(nameof(CsvSettings)));
         }
 
@@ -35,7 +53,15 @@ namespace Assecor.Backend.Api
             app.UseRouting();
             app.UseMiddleware<ExceptionHandler>();
             app.UseHttpsRedirection();
-            
+
+            // swagger
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Assessment Backend API v1");
+                options.RoutePrefix = string.Empty;
+            });
+
             // Endpoint mapping
             app.UseEndpoints(endpoints =>
             {

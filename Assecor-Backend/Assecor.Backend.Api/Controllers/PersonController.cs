@@ -2,6 +2,7 @@
 using Assecor.Backend.Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
+using Assecor.Backend.Api.Responses;
 using Assecor.Backend.Mappings;
 using Assecor.Backend.Services.Contracts;
 
@@ -20,7 +21,7 @@ namespace Assecor.Backend.Api.Controllers
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(typeof(List<ApiPerson>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(List<ApiPerson>), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(RestServerErrorResponse), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetPersonsAsync()
         {
             var persons = await _personService.GetAllPersonsAsync();
@@ -32,8 +33,8 @@ namespace Assecor.Backend.Api.Controllers
         [Route("color/{color}")]
         [Produces(MediaTypeNames.Application.Json)]
         [ProducesResponseType(typeof(List<ApiPerson>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(List<ApiPerson>), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(List<ApiPerson>), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(RestServerErrorResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(RestServerErrorResponse), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetPersonsByColorAsync(int color)
         {
             if (!_validationService.IsValidEnumValue<Color>(color))
@@ -50,7 +51,7 @@ namespace Assecor.Backend.Api.Controllers
         [Route("{id}")]
         [Produces(MediaTypeNames.Application.Json)]
         [ProducesResponseType(typeof(ApiPerson), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(List<ApiPerson>), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(RestServerErrorResponse), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetPersonByIdAsync(int id)
         {
             var person = await _personService.GetPersonByIdAsync(id);
