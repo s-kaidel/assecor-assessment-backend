@@ -13,13 +13,14 @@ namespace Assecor.Backend.Mappings
 
         public static ApiPerson MapFromDomainPerson(Person domainPerson)
         {
+            var color = domainPerson.Color != null ? domainPerson.Color.ToString()?.ToLower() : null;
             var person = new ApiPerson()
             {
                 Id = domainPerson.Id,
                 Name = domainPerson.Name,
                 LastName = domainPerson.LastName,
                 City = domainPerson.City,
-                Color = domainPerson.Color.ToString()?.ToLower(),
+                Color = color,
                 ZipCode = domainPerson.ZipCode
             };
             return person;
