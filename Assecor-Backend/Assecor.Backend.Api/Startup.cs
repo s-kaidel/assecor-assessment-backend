@@ -6,14 +6,9 @@ using Assecor.Backend.Services.IoC;
 
 namespace Assecor.Backend.Api
 {
-    public class Startup
+    public class Startup(IConfiguration configuration)
     {
-        private IConfiguration Configuration { get; }
-
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+        private IConfiguration Configuration { get; } = configuration;
 
         public void ConfigureServices(IServiceCollection services)
         {

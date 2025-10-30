@@ -3,11 +3,11 @@
     public interface IValidationService
     {
         /// <summary>
-        /// Checks if provided value is in given type of enum
+        /// Checks if provided value is in given type of enum.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
-        /// <returns></returns>
+        /// <returns>true, if value is in enum</returns>
         bool IsValidEnumValue<T>(int value) where T : Enum;
     }
 }

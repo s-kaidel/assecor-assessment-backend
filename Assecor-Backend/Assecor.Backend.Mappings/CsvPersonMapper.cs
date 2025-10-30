@@ -39,7 +39,7 @@ namespace Assecor.Backend.Mappings
                     && zipCode == null
                     && char.IsDigit(value.FirstOrDefault()))
                 {
-                    var location = ParseLocation(value);
+                    var location = ParseLocation(value, rowNumber);
                     if (location.city != null)
                     { 
                         city = location.city;
@@ -48,12 +48,14 @@ namespace Assecor.Backend.Mappings
                     }
                 }
 
-                if (color is null 
-                    && int.TryParse(value, out var colorValue) 
-                    && _validationService.IsValidEnumValue<Color>(colorValue))
+                if (color is null)
                 {
-                    color = (Color)colorValue;
-                    continue;
+                    var validation = IsValidEnumValue(field, rowNumber);
+                    if (validation.isValid)
+                    {
+                        color = (Color)validation.colorValue!;
+                        continue;
+                    }
                 }
 
                 if (name == null)
@@ -76,7 +78,8 @@ namespace Assecor.Backend.Mappings
             };
             return person;
         }
-        private static (int? zipCode, string? city) ParseLocation(string location)
+
+        private (int? zipCode, string? city) ParseLocation(string location, int rowNumber)
         {
             var whiteSpaceIndex = location.IndexOf(' ');
             if (whiteSpaceIndex > 0)
@@ -88,11 +91,30 @@ namespace Assecor.Backend.Mappings
                 {
                     return (zipCode, city);
                 }
-
+                _logger.LogInformation("string '{zipCodeStr}' in row {rowNumber} was not parsable to int, zipCode will be null", zipCode, rowNumber);
                 return (null, city);
             }
 
+            _logger.LogInformation("string '{location}' in row {rowNumber} is not parsable to zipCode and city, they will be null", location, rowNumber);
             return (null, null);
+        }
+
+        private (bool isValid, int? colorValue) IsValidEnumValue(string color, int rowNumber)
+        {
+            var isValidEnum = false;
+            var isParsable = int.TryParse(color, out var colorValue);
+
+            if (isParsable)
+            {
+                isValidEnum = _validationService.IsValidEnumValue<Color>(colorValue);
+            }
+
+            if (isValidEnum)
+            {
+                return (true, colorValue);
+            }
+            _logger.LogInformation("Value '{color}' in row {rowNumber} is no value of enum '{enum}'", color, rowNumber, nameof(Color));
+            return (false, null);
         }
     }
 }

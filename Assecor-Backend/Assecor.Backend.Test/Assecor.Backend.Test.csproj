@@ -22,6 +22,7 @@
     <ProjectReference Include="..\Assecor.Backend.Csv\Assecor.Backend.CsvAccess.csproj" />
     <ProjectReference Include="..\Assecor.Backend.Dal.Contracts\Assecor.Backend.Dal.Contracts.csproj" />
     <ProjectReference Include="..\Assecor.Backend.Dal\Assecor.Backend.Dal.csproj" />
+    <ProjectReference Include="..\Assecor.Backend.Services\Assecor.Backend.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>
