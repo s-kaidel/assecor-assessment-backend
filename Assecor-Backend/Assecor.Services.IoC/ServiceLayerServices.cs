@@ -9,6 +9,7 @@ namespace Assecor.Services.IoC
         public static IServiceCollection AddServiceLayerServices(this IServiceCollection services)
         {
             services.AddScoped<IPersonService, PersonService>();
+            services.AddScoped<IValidationService, ValidationService>();
             return services;
         }
     }
