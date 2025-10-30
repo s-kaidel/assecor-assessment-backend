@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Assecor.Backend.Services\Assecor.Backend.Services.csproj" />
-    <ProjectReference Include="..\Assecor.Services.Contracts\Assecor.Services.Contracts.csproj" />
+    <ProjectReference Include="..\Assecor.Services.Contracts\Assecor.Backend.Services.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

@@ -14,7 +14,7 @@
     <ProjectReference Include="..\Assecor.Backend.Dal.Contracts\Assecor.Backend.Dal.Contracts.csproj" />
     <ProjectReference Include="..\Assecor.Backend.Domain\Assecor.Backend.Domain.csproj" />
     <ProjectReference Include="..\Assecor.Backend.Mappings\Assecor.Backend.Mappings.csproj" />
-    <ProjectReference Include="..\Assecor.Services.Contracts\Assecor.Services.Contracts.csproj" />
+    <ProjectReference Include="..\Assecor.Services.Contracts\Assecor.Backend.Services.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

@@ -17,9 +17,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assecor.Backend.Configurati
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assecor.Backend.Services", "Assecor.Backend.Services\Assecor.Backend.Services.csproj", "{9B8B97FB-FD1F-4A93-97A0-D6E8E5FEA276}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assecor.Services.Contracts", "Assecor.Services.Contracts\Assecor.Services.Contracts.csproj", "{64AC4502-2C2A-41CD-B912-8641401A96F0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assecor.Backend.Services.Contracts", "Assecor.Services.Contracts\Assecor.Backend.Services.Contracts.csproj", "{64AC4502-2C2A-41CD-B912-8641401A96F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assecor.Services.IoC", "Assecor.Services.IoC\Assecor.Services.IoC.csproj", "{3DC05C32-1BB9-4348-A000-A5AFD66284D3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assecor.Backend.Services.IoC", "Assecor.Services.IoC\Assecor.Backend.Services.IoC.csproj", "{3DC05C32-1BB9-4348-A000-A5AFD66284D3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assecor.Backend.CsvAccess", "Assecor.Backend.Csv\Assecor.Backend.CsvAccess.csproj", "{31D0F8A5-FE56-4B83-966D-4C5147425EEA}"
 EndProject

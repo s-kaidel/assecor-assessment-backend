@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Assecor.Backend.Domain\Assecor.Backend.Domain.csproj" />
+    <ProjectReference Include="..\Assecor.Services.Contracts\Assecor.Backend.Services.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,11 +1,15 @@
 ﻿using Assecor.Backend.Domain.DalModels;
 using Assecor.Backend.Domain.Enums;
+using Assecor.Services.Contracts;
 using Microsoft.Extensions.Logging;
 
 namespace Assecor.Backend.Mappings
 {
-    public class CsvPersonMapper(ILogger<CsvPersonMapper> logger) : ICsvPersonMapper
+    public class CsvPersonMapper(ILogger<CsvPersonMapper> logger, IValidationService validationService) : ICsvPersonMapper
     {
+        private readonly ILogger<CsvPersonMapper> _logger = logger;
+        private readonly IValidationService _validationService = validationService;
+
         /// <summary>
         /// Converts a single row to a CsvPerson, missing or faulty values will be null
         /// </summary>
@@ -46,7 +50,7 @@ namespace Assecor.Backend.Mappings
 
                 if (color is null 
                     && int.TryParse(value, out var colorValue) 
-                    && Enum.IsDefined(typeof(Color), colorValue))
+                    && _validationService.IsValidEnumValue<Color>(colorValue))
                 {
                     color = (Color)colorValue;
                     continue;
