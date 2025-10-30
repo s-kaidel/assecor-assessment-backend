@@ -21,32 +21,32 @@ namespace Assecor.Backend.CsvAccess
 
             _logger.LogInformation("Beginning csv parsing.");
             var items = new List<T>();
-            var rowNumber = 1;
+
+            using var reader = new StreamReader(filePath);
+            using var csv = new CsvReader(reader, config);
+            var rowNumber = 0;
 
             try
             {
-                using var reader = new StreamReader(filePath);
-                using var csv = new CsvReader(reader, config);
-
                 while (await csv.ReadAsync())
                 {
+                    rowNumber = csv.Parser.Row;
                     var fields = csv.Parser.Record ?? [];
                     var item = mappingFunc.Invoke(fields, rowNumber);
 
                     if (item == null)
                     {
-                        _logger.LogInformation($"Row {rowNumber} could not be parsed, row is skipped.");
+                        _logger.LogInformation($"Row {rowNumber} could not be parsed to object of type {typeof(T).Name}, row is skipped.");
                     }
                     else
                     {
                         items.Add(item);
                     }
-                    rowNumber++;
                 }
             }
             catch (Exception ex)
             {
-                throw new CsvReaderException($"Csv reading error in row {rowNumber}: {ex.Message}");
+                throw new CsvReaderException($"Csv reading error in row {rowNumber}: {ex}");
             }
 
             _logger.LogInformation("Csv parsing successful");

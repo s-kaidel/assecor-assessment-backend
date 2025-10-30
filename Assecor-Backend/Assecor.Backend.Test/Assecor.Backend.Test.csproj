@@ -25,6 +25,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="CsvReaderTest\TestFiles\illFormattedLines.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="CsvReaderTest\TestFiles\notParsableLines.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="CsvReaderTest\TestFiles\missing_lines.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
