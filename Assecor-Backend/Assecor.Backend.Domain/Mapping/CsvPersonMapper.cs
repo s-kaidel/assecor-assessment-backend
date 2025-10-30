@@ -35,9 +35,12 @@ namespace Assecor.Backend.Domain.Mapping
                     && char.IsDigit(value.FirstOrDefault()))
                 {
                     var location = ParseLocation(value);
-                    city = location.city;
-                    zipCode = location.zipCode;
-                    continue;
+                    if (location.city != null)
+                    { 
+                        city = location.city;
+                        zipCode = location.zipCode;
+                        continue;
+                    }
                 }
 
                 if (color is null 
@@ -70,17 +73,21 @@ namespace Assecor.Backend.Domain.Mapping
         }
         private static (int? zipCode, string? city) ParseLocation(string location)
         {
-            var commaIndex = location.IndexOf(' ');
-
-            var zipCodeString = location.Substring(0, commaIndex).Trim();
-            var city = location.Substring(commaIndex + 1).Trim();
-
-            if (int.TryParse(zipCodeString, out var zipCode))
+            var whiteSpaceIndex = location.IndexOf(' ');
+            if (whiteSpaceIndex > 0)
             {
-                return (zipCode, city);
+                var zipCodeString = location.Substring(0, whiteSpaceIndex).Trim();
+                var city = location.Substring(whiteSpaceIndex + 1).Trim();
+
+                if (int.TryParse(zipCodeString, out var zipCode))
+                {
+                    return (zipCode, city);
+                }
+
+                return (null, city);
             }
 
-            return (null, city);
+            return (null, null);
         }
     }
 }
