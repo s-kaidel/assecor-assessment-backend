@@ -44,7 +44,7 @@ namespace Assecor.Backend.Test
             });
             _sut = new CsvFileLocationHandler(_settings);
             var expectedError =
-                $"Csv file '{fileName}' not found, please review provided file name and file directory in appSettings";
+                $"Csv file '{fileName}' not found, please review provided file name in appSettings";
 
             var act = () => _sut.GetPersonsFilePath();
 
@@ -63,12 +63,11 @@ namespace Assecor.Backend.Test
                 }
             });
             _sut = new CsvFileLocationHandler(_settings);
-            var expectedError =
-                $"Csv file '{_validFileName}' not found, please review provided file name and file directory in appSettings";
+            var expectedError = "Could not find file directory, please review provided directory in appSettings";
 
             var act = () => _sut.GetPersonsFilePath();
 
-            act.ShouldThrow<FileNotFoundException>(expectedError);
+            act.ShouldThrow<DirectoryNotFoundException>(expectedError);
         }
     }
 }

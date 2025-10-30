@@ -12,11 +12,17 @@ namespace Assecor.Backend.CsvAccess
             var baseDirectory = !string.IsNullOrEmpty(_settings.DirectoryPath) 
                 ? _settings.DirectoryPath 
                 : AppContext.BaseDirectory;
-            
+
             var filePath = Path.Combine(baseDirectory, fileName);
-            return File.Exists(filePath) 
-                ? filePath 
-                : throw new FileNotFoundException($"Csv file '{fileName}' not found, please review provided file name and file directory in appSettings");
+            var validDirectory = Directory.Exists(baseDirectory);
+            var validFileName = File.Exists(filePath);
+
+
+            return validDirectory
+                    ? validFileName
+                        ? filePath
+                        : throw new FileNotFoundException($"Csv file '{fileName}' not found, please review provided file name in appSettings")
+                    : throw new DirectoryNotFoundException("Could not find file directory, please review provided directory in appSettings");
         }
 
         public string GetPersonsFilePath()

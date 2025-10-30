@@ -32,6 +32,10 @@ namespace Assecor.Backend.Api
                 case FileNotFoundException:
                     title = "Could not find csv file";
                     break;
+                
+                case DirectoryNotFoundException:
+                    title = "Could not find csv file directory";
+                    break;
             }
 
             logger.LogError(ex, ex.Message);
