@@ -2,6 +2,6 @@
 {
     public interface ICsvFileLocationHandler
     {
-        string GetCsvFilePath(string fileName);
+        string GetPersonsFilePath();
     }
 }

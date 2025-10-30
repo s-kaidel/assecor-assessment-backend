@@ -1,33 +1,28 @@
-﻿using Assecor.Backend.Configuration;
-using Assecor.Backend.CsvAccess;
+﻿using Assecor.Backend.CsvAccess;
 using Assecor.Backend.Dal.Contracts;
 using Assecor.Backend.Dal.Provider;
 using Assecor.Backend.Domain.DalModels;
 using Assecor.Backend.Domain.Enums;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace Assecor.Backend.Test.ProviderTests
 {
     public class CsvPersonProviderTest
     {
         private readonly ICsvPersonProvider _sut;
-        private readonly CsvSettings _settings = new() { Files = new() };
         private readonly ICsvReader<CsvPerson> _readerMock = Substitute.For<ICsvReader<CsvPerson>>();
         private readonly ILogger<CsvPersonProvider> _loggerMock = Substitute.For<ILogger<CsvPersonProvider>>();
-        private readonly IOptions<CsvSettings> _settingsMock = Substitute.For<IOptions<CsvSettings>>();
         private readonly ICsvFileLocationHandler _fileHandlerMock = Substitute.For<ICsvFileLocationHandler>();
 
         public CsvPersonProviderTest()
         { 
             SetupCsvMocks();
-            _sut = new CsvPersonProvider(_loggerMock, _readerMock, _fileHandlerMock, _settingsMock);
+            _sut = new CsvPersonProvider(_loggerMock, _readerMock, _fileHandlerMock);
         }
 
         private void SetupCsvMocks()
         {
-            _settingsMock.Value.Returns(_settings);
-            _fileHandlerMock.GetCsvFilePath(Arg.Any<string>()).Returns(string.Empty);
+            _fileHandlerMock.GetPersonsFilePath().Returns(string.Empty);
             _readerMock
             .ReadFromCsvAsync(Arg.Any<Func<IEnumerable<string>, int, CsvPerson>>(), Arg.Any<string>())
             .Returns(Task.FromResult(_persons));
