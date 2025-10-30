@@ -28,6 +28,9 @@
     <None Update="CsvReaderTest\TestFiles\missing_lines.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="CsvReaderTest\TestFiles\persons.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

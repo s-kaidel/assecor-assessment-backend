@@ -9,7 +9,9 @@ namespace Assecor.Backend.CsvAccess
 
         private string GetCsvFilePath(string fileName)
         {
-            var baseDirectory = !string.IsNullOrEmpty(_settings.DirectoryPath) ? _settings.DirectoryPath : AppContext.BaseDirectory;
+            var baseDirectory = !string.IsNullOrEmpty(_settings.DirectoryPath) 
+                ? _settings.DirectoryPath 
+                : AppContext.BaseDirectory;
             
             var filePath = Path.Combine(baseDirectory, fileName);
             return File.Exists(filePath) 
