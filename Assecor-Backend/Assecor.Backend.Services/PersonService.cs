@@ -12,6 +12,10 @@ namespace Assecor.Backend.Services
         private readonly ICsvPersonProvider _csvProvider = csvProvider;
         private readonly IPersonMapper _personMapper = personMapper;
 
+        /// <summary>
+        /// Returns all currently available persons from the data storage
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<Person>> GetAllPersonsAsync()
         {
             var dalPersons = await _csvProvider.GetAllPersonsAsync();
@@ -19,6 +23,11 @@ namespace Assecor.Backend.Services
             return persons;
         }
 
+        /// <summary>
+        /// Returns all persons whose favorite color matches provided color
+        /// </summary>
+        /// <param name="color">the color to match</param>
+        /// <returns></returns>
         public async Task<List<Person>> GetPersonsByColorAsync(Color color)
         {
             var csvPersons = await _csvProvider.GetPersonsByColorAsync(color);
@@ -26,6 +35,11 @@ namespace Assecor.Backend.Services
             return persons;
         }
 
+        /// <summary>
+        /// Returns the person matching provided id. If none found, an empty maybe is returned
+        /// </summary>
+        /// <param name="id">the id to match</param>
+        /// <returns></returns>
         public async Task<Maybe<Person>> GetPersonByIdAsync(int id)
         {
             var csvPerson = await _csvProvider.GetPersonByIdAsync(id);

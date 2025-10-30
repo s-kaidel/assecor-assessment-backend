@@ -10,6 +10,13 @@ namespace Assecor.Backend.CsvAccess
     {
         private readonly ILogger<CsvReader<T>> _logger = logger;
 
+        /// <summary>
+        /// Tries to parse a csv file with provided mapping method
+        /// </summary>
+        /// <param name="mappingFunc">the mapping method to use while parsing</param>
+        /// <param name="filePath">the full filePath</param>
+        /// <returns></returns>
+        /// <exception cref="CsvReaderException"></exception>
         public async Task<List<T>> ReadFromCsvAsync(Func<IEnumerable<string>, int, T?> mappingFunc, string filePath)
         {
             

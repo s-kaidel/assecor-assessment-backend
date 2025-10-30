@@ -7,20 +7,20 @@ namespace Assecor.Backend.Services.Contracts
     public interface IPersonService
     {
         /// <summary>
-        /// Returns all currently available persons as a list
+        /// Returns all currently available persons from the data storage
         /// </summary>
         /// <returns></returns>
         Task<List<Person>> GetAllPersonsAsync();
 
         /// <summary>
-        /// Returns all persons whose favorite color is provided color
+        /// Returns all persons whose favorite color matches provided color
         /// </summary>
         /// <param name="color">the color to match</param>
         /// <returns></returns>
         Task<List<Person>> GetPersonsByColorAsync(Color color);
 
         /// <summary>
-        /// Returns the person matching provided id. If none found, null is returned
+        /// Returns the person matching provided id. If none found, an empty maybe is returned
         /// </summary>
         /// <param name="id">the id to match</param>
         /// <returns></returns>

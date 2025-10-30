@@ -16,7 +16,7 @@ namespace Assecor.Backend.Api.Controllers
         private readonly IValidationService _validationService = validationService;
 
         /// <summary>
-        /// Returns all persons from the data storage
+        /// Returns all available persons from the data storage
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -30,6 +30,11 @@ namespace Assecor.Backend.Api.Controllers
             return RestServerOk(apiPersons);
         }
 
+        /// <summary>
+        /// Returns all persons matching given color
+        /// </summary>
+        /// <param name="color">the color to match</param>
+        /// <returns></returns>
         [HttpGet]
         [Route("color/{color}")]
         [Produces(MediaTypeNames.Application.Json)]
@@ -48,6 +53,11 @@ namespace Assecor.Backend.Api.Controllers
 
         }
 
+        /// <summary>
+        /// Returns the person matching given id
+        /// </summary>
+        /// <param name="id">the id to match</param>
+        /// <returns></returns>
         [HttpGet]
         [Route("{id}")]
         [Produces(MediaTypeNames.Application.Json)]

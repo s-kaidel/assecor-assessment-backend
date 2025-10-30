@@ -17,6 +17,11 @@
             HasValue = true;
         }
 
+        /// <summary>
+        /// get a maybe of given type with given value
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static Maybe<T> From(T? value) => value != null ? new Maybe<T>(value) : None();
 
         private static Maybe<T> None() => new();
@@ -33,6 +38,11 @@
 
     public static class Maybe
     {
+        /// <summary>
+        /// get a maybe of given type with given value
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static Maybe<T> From<T>(T? value) => Maybe<T>.From(value);
     }
 }
