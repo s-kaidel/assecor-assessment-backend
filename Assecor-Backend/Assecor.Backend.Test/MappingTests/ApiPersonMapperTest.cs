@@ -31,6 +31,26 @@ namespace Assecor.Backend.Test.MappingTests
             apiPerson.Color.ShouldBe(expectedColor);
         }
 
+        [Theory]
+        [InlineData(Color.None)]
+        [InlineData(null)]
+        public void Should_Map_Color_To_Null(Color? color)
+        {
+            var person = new Person()
+            {
+                Id = 1,
+                Name = "Hans",
+                LastName = "Habicht",
+                City = "Falkendorf",
+                ZipCode = 91074,
+                Color = color
+            };
+
+            var apiPerson = ApiPersonMapper.MapFromDomainPerson(person);
+
+            apiPerson.Color.ShouldBeNull();
+        }
+
         [Fact]
         public void Should_Map_All_Persons()
         {

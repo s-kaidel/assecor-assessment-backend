@@ -1,5 +1,6 @@
 ﻿using Assecor.Backend.Domain.ApiModels;
 using Assecor.Backend.Domain.BackendModels;
+using Assecor.Backend.Domain.Enums;
 
 namespace Assecor.Backend.Mappings
 {
@@ -13,17 +14,23 @@ namespace Assecor.Backend.Mappings
 
         public static ApiPerson MapFromDomainPerson(Person domainPerson)
         {
-            var color = domainPerson.Color != null ? domainPerson.Color.ToString()?.ToLower() : null;
             var person = new ApiPerson()
             {
                 Id = domainPerson.Id,
                 Name = domainPerson.Name,
                 LastName = domainPerson.LastName,
                 City = domainPerson.City,
-                Color = color,
+                Color = GetColor(domainPerson.Color),
                 ZipCode = domainPerson.ZipCode
             };
             return person;
+        }
+
+        private static string? GetColor(Color? color)
+        {
+            return color is null or Color.None 
+                ? null 
+                : color.ToString()?.ToLower();
         }
     }
 }
