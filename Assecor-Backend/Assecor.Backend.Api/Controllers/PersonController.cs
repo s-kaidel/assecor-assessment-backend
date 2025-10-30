@@ -9,17 +9,18 @@ namespace Assecor.Backend.Api.Controllers
 {
     [ApiController]
     [Route("api/persons")]
-    public class PersonController(IPersonService personService) : RestServerControllerBase
+    public class PersonController(IPersonService personService, IValidationService validationService) : RestServerControllerBase
     {
         private readonly IPersonService _personService = personService;
+        private readonly IValidationService _validationService = validationService;
 
         /// <summary>
         /// Returns all persons from the data storage
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Produces(MediaTypeNames.Application.Json)]
         [ProducesResponseType(typeof(List<ApiPerson>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(List<ApiPerson>), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetPersonsAsync()
         {
             var persons = await _personService.GetAllPersonsAsync();
@@ -32,9 +33,10 @@ namespace Assecor.Backend.Api.Controllers
         [Produces(MediaTypeNames.Application.Json)]
         [ProducesResponseType(typeof(List<ApiPerson>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(List<ApiPerson>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(List<ApiPerson>), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetPersonsByColorAsync(int color)
         {
-            if (!Enum.IsDefined(typeof(Color), color))
+            if (!_validationService.IsValidEnumValue<Color>(color))
             {
                 return RestServerBadRequest($"Color {color} is not valid");
             }
@@ -48,6 +50,7 @@ namespace Assecor.Backend.Api.Controllers
         [Route("{id}")]
         [Produces(MediaTypeNames.Application.Json)]
         [ProducesResponseType(typeof(ApiPerson), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(List<ApiPerson>), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetPersonByIdAsync(int id)
         {
             var person = await _personService.GetPersonByIdAsync(id);
