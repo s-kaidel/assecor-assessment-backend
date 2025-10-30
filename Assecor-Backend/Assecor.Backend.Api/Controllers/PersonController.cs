@@ -20,6 +20,7 @@ namespace Assecor.Backend.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Produces(MediaTypeNames.Application.Json)]
         [ProducesResponseType(typeof(List<ApiPerson>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(RestServerErrorResponse), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetPersonsAsync()
