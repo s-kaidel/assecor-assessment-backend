@@ -19,18 +19,21 @@ namespace Assecor.Backend.Test.ServiceTests
         }
 
         [Theory]
-        [InlineData("hans", "herrmann", 1, true)]
-        [InlineData("hans", "herrmann", -1, false)]
-        [InlineData("hans", "herrmann", int.MaxValue, false)]
-        [InlineData("", "herrmann", 1, false)]
-        [InlineData("hans", "", 1, false)]
-        public void Should_Validate_PersonRequest(string name, string lastName, int? color, bool expectedOutcome)
+        [InlineData("hans", "herrmann", null, 1, true)]
+        [InlineData("hans", "herrmann", null, -1, false)]
+        [InlineData("hans", "herrmann", null, int.MaxValue, false)]
+        [InlineData("", "herrmann", null, 1, false)]
+        [InlineData("hans", "", null, 1, false)]
+        [InlineData("hans", "herrmann", "", 1, false)]
+        [InlineData("hans", "herrmann", " ", 1, false)]
+        public void Should_Validate_PersonRequest(string name, string lastName, string? city, int? color, bool expectedOutcome)
         {
             var request = new CreateCsvPersonRequest()
             {
                 Name = name,
                 LastName = lastName,
                 Color = color,
+                City = city
             };
 
             _sut.IsValidCsvPerson(request).ShouldBe(expectedOutcome);

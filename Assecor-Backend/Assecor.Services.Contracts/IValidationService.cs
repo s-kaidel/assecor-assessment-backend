@@ -14,6 +14,7 @@ namespace Assecor.Backend.Services.Contracts
 
         /// <summary>
         /// Checks if the request data is valid. Name and lastName are required and the color, if existing, needs to be valid.
+        /// If a city is provided, it can't be a whitespace
         /// </summary>
         /// <param name="personRequest"></param>
         /// <returns></returns>

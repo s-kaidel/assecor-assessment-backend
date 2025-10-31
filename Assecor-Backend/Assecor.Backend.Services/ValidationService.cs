@@ -20,6 +20,7 @@ namespace Assecor.Backend.Services
 
         /// <summary>
         /// Checks if the request data is valid. Name and lastName are required and the color, if existing, needs to be valid.
+        /// If a city is provided, it can't be a whitespace
         /// </summary>
         /// <param name="personRequest"></param>
         /// <returns></returns>
@@ -33,8 +34,9 @@ namespace Assecor.Backend.Services
 
             var hasName = !string.IsNullOrEmpty(personRequest.Name);
             var hasLastName = !string.IsNullOrEmpty(personRequest.LastName);
+            var validCity = personRequest.City == null || !string.IsNullOrWhiteSpace(personRequest.City);
 
-            var validPerson = hasName && hasLastName && isValidEnum;
+            var validPerson = hasName && hasLastName && isValidEnum && validCity;
             return validPerson;
         }
     }
