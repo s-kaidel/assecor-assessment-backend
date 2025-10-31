@@ -48,7 +48,7 @@ namespace Assecor.Backend.Services
             return person;
         }
 
-        //TODO add unit test
+        //TODO add unit test, add check if person is duplicate
         /// <summary>
         /// Create a new person entry in the data storage, returns id of created person
         /// </summary>
