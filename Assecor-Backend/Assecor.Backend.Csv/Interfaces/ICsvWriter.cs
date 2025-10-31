@@ -2,6 +2,6 @@
 {
     public interface ICsvWriter<in T>
     {
-        Task WriteToCsvAsync(string filePath, IEnumerable<T> data);
+        Task AppendToCsvAsync(string filePath, IEnumerable<T> data);
     }
 }

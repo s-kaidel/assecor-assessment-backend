@@ -1,14 +1,20 @@
-﻿using CsvHelper.Configuration;
-using System.Globalization;
-using Assecor.Backend.CsvAccess.Interfaces;
+﻿using Assecor.Backend.CsvAccess.Interfaces;
 using Assecor.Backend.Domain.Exceptions;
-using Microsoft.Extensions.Logging;
+using CsvHelper.Configuration;
+using System.Globalization;
 
 namespace Assecor.Backend.CsvAccess
 {
-    public class CsvWriter<T>(ILogger<CsvWriter<T>> logger) : ICsvWriter<T>
+    public class CsvWriter<T> : ICsvWriter<T>
     {
-        public async Task WriteToCsvAsync(string filePath, IEnumerable<T> data)
+        /// <summary>
+        /// Appends records to a csv file, headers are ignored
+        /// </summary>
+        /// <param name="filePath">path to the csv file</param>
+        /// <param name="data">the objects to append</param>
+        /// <returns></returns>
+        /// <exception cref="CsvWriterException"></exception>
+        public async Task AppendToCsvAsync(string filePath, IEnumerable<T> data)
         {
             try
             {
