@@ -31,8 +31,8 @@ namespace Assecor.Backend.Services
                 isValidEnum = IsValidEnumValue<Color>(personRequest.Color.Value);
             }
 
-            var hasName = string.IsNullOrEmpty(personRequest.Name);
-            var hasLastName = string.IsNullOrEmpty(personRequest.LastName);
+            var hasName = !string.IsNullOrEmpty(personRequest.Name);
+            var hasLastName = !string.IsNullOrEmpty(personRequest.LastName);
 
             var validPerson = hasName && hasLastName && isValidEnum;
             return validPerson;
