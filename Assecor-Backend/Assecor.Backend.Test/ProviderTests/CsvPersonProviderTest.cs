@@ -1,4 +1,5 @@
 ﻿using Assecor.Backend.CsvAccess;
+using Assecor.Backend.CsvAccess.Interfaces;
 using Assecor.Backend.Dal.Contracts;
 using Assecor.Backend.Dal.Provider;
 using Assecor.Backend.Domain.DalModels;

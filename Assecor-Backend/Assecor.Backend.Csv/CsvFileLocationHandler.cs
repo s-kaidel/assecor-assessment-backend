@@ -1,4 +1,5 @@
 ﻿using Assecor.Backend.Configuration;
+using Assecor.Backend.CsvAccess.Interfaces;
 using Microsoft.Extensions.Options;
 
 namespace Assecor.Backend.CsvAccess

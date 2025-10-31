@@ -1,4 +1,4 @@
-﻿namespace Assecor.Backend.CsvAccess
+﻿namespace Assecor.Backend.CsvAccess.Interfaces
 {
     public interface ICsvReader<T>
     {
