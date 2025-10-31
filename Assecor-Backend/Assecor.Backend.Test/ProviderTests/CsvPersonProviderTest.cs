@@ -1,10 +1,9 @@
-﻿using Assecor.Backend.CsvAccess;
-using Assecor.Backend.CsvAccess.Interfaces;
+﻿using Assecor.Backend.CsvAccess.Interfaces;
 using Assecor.Backend.Dal.Contracts;
 using Assecor.Backend.Dal.Provider;
 using Assecor.Backend.Domain.DalModels;
+using Assecor.Backend.Domain.Dto;
 using Assecor.Backend.Domain.Enums;
-using Assecor.Backend.Mappings;
 using Assecor.Backend.Mappings.Interfaces;
 using Microsoft.Extensions.Logging;
 
@@ -14,17 +13,18 @@ namespace Assecor.Backend.Test.ProviderTests
     {
         private readonly ICsvPersonProvider _sut;
         private readonly ICsvReader<CsvPerson> _readerMock = Substitute.For<ICsvReader<CsvPerson>>();
+        private readonly ICsvWriter<CsvPersonDto> _writerMock = Substitute.For<ICsvWriter<CsvPersonDto>>();
         private readonly ILogger<CsvPersonProvider> _loggerMock = Substitute.For<ILogger<CsvPersonProvider>>();
         private readonly ICsvFileLocationHandler _fileHandlerMock = Substitute.For<ICsvFileLocationHandler>();
         private readonly ICsvPersonMapper _mapperMock = Substitute.For<ICsvPersonMapper>();
 
         public CsvPersonProviderTest()
         { 
-            SetupCsvMocks();
-            _sut = new CsvPersonProvider(_loggerMock, _readerMock, _fileHandlerMock, _mapperMock);
+            SetupCsvMocksForReading();
+            _sut = new CsvPersonProvider(_loggerMock, _readerMock, _fileHandlerMock, _mapperMock, _writerMock);
         }
 
-        private void SetupCsvMocks()
+        private void SetupCsvMocksForReading()
         {
             _fileHandlerMock.GetPersonsFilePath().Returns(string.Empty);
             _mapperMock.MapFromCsvRow(Arg.Any<IEnumerable<string>>(), Arg.Any<int>()).Returns(new CsvPerson());

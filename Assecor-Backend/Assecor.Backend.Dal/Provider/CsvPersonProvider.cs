@@ -1,11 +1,10 @@
-﻿using Assecor.Backend.CsvAccess;
-using Assecor.Backend.CsvAccess.Interfaces;
+﻿using Assecor.Backend.CsvAccess.Interfaces;
 using Assecor.Backend.Dal.Contracts;
 using Assecor.Backend.Domain.DalModels;
+using Assecor.Backend.Domain.Dto;
 using Assecor.Backend.Domain.Enums;
 using Assecor.Backend.Domain.Extensions;
 using Assecor.Backend.Domain.Maybe;
-using Assecor.Backend.Mappings;
 using Assecor.Backend.Mappings.Interfaces;
 using Microsoft.Extensions.Logging;
 
@@ -15,12 +14,14 @@ namespace Assecor.Backend.Dal.Provider
         ILogger<CsvPersonProvider> logger,
         ICsvReader<CsvPerson> reader,
         ICsvFileLocationHandler fileLocationHandler,
-        ICsvPersonMapper mapper) : ICsvPersonProvider
+        ICsvPersonMapper mapper,
+        ICsvWriter<CsvPersonDto> writer) : ICsvPersonProvider
     {
         private readonly ILogger<CsvPersonProvider> _logger = logger;
         private readonly ICsvReader<CsvPerson> _reader = reader;
         private readonly ICsvFileLocationHandler _fileLocationHandler = fileLocationHandler;
         private readonly ICsvPersonMapper _mapper = mapper;
+        private readonly ICsvWriter<CsvPersonDto> _writer = writer;
 
         /// <summary>
         /// Returns all currently available persons from the csv data file.
@@ -69,10 +70,27 @@ namespace Assecor.Backend.Dal.Provider
             return personMaybe;
         }
 
+        /// <summary>
+        /// Create a person entry in the csv data file. Returns the id of created person.
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        public async Task<int> CreateCsvPersonAsync(CsvPersonDto dto)
+        {
+            var filePath = GetPersonsFilePath();
+            var id = await writer.AppendToCsvAsync(filePath, [dto]);
+            return id;
+        }
+
         private async Task<List<CsvPerson>> GetPersonsAsync()
         {
-            var filePath = _fileLocationHandler.GetPersonsFilePath();
+            var filePath = GetPersonsFilePath();
             return await _reader.ReadFromCsvAsync(_mapper.MapFromCsvRow, filePath);
+        }
+
+        private string GetPersonsFilePath()
+        {
+            return _fileLocationHandler.GetPersonsFilePath();
         }
     }
 }
