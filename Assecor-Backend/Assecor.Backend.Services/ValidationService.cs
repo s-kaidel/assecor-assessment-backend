@@ -1,4 +1,6 @@
-﻿using Assecor.Backend.Services.Contracts;
+﻿using Assecor.Backend.Domain.Dto;
+using Assecor.Backend.Domain.Enums;
+using Assecor.Backend.Services.Contracts;
 
 namespace Assecor.Backend.Services
 {
@@ -8,6 +10,21 @@ namespace Assecor.Backend.Services
         {
             var isValid = Enum.IsDefined(typeof(T), value);
             return isValid;
+        }
+
+        public bool IsValidCsvPerson(CreateCsvPersonDto personDto)
+        {
+            var isValidEnum = true;
+            if (personDto.Color != null)
+            {
+                isValidEnum = IsValidEnumValue<Color>(personDto.Color.Value);
+            }
+
+            var hasName = string.IsNullOrEmpty(personDto.Name);
+            var hasLastName = string.IsNullOrEmpty(personDto.LastName);
+
+            var validPerson = hasName && hasLastName && isValidEnum;
+            return validPerson;
         }
     }
 }

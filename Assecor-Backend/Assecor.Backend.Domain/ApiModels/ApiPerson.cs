@@ -1,6 +1,4 @@
-﻿using Assecor.Backend.Domain.Enums;
-
-namespace Assecor.Backend.Domain.ApiModels
+﻿namespace Assecor.Backend.Domain.ApiModels
 {
     public class ApiPerson
     {

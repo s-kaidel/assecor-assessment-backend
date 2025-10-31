@@ -1,0 +1,10 @@
+﻿namespace Assecor.Backend.Domain.Dto
+{
+    public class CreateCsvPersonDto
+    {
+        public string Name { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty;
+        public string? Location { get; set; }
+        public int? Color { get; set; }
+    }
+}
