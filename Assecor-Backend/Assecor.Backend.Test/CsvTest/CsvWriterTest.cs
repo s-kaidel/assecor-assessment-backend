@@ -189,5 +189,27 @@ namespace Assecor.Backend.Test.CsvTest
 
             File.Delete(filePath);
         }
+
+        [Theory]
+        [InlineData(true, "some header", 2)]
+        [InlineData(false, null, 1)]
+        public async Task Should_Return_Correct_Line_Value(bool hasHeaderRow, string? headerRow, int expectedId)
+        {
+            var filePath = GetTempCsvFilePath(headerRow ?? string.Empty);
+
+            var csvPerson = new CsvPersonDto()
+            {
+                Name = "Hans",
+                LastName = "Habicht",
+                Location = null,
+                Color = 2
+            };
+
+            var result = await _sut.AppendToCsvAsync(filePath, [csvPerson], hasHeaderRow);
+            
+           result.ShouldBe(expectedId);
+
+            File.Delete(filePath);
+        }
     }
 }
