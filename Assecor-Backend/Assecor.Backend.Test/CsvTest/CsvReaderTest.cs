@@ -5,11 +5,11 @@ using Assecor.Backend.Domain.Exceptions;
 using Assecor.Backend.Mappings;
 using Microsoft.Extensions.Logging;
 
-namespace Assecor.Backend.Test.CsvReaderTest
+namespace Assecor.Backend.Test.CsvTest
 {
     public class CsvReaderTest
     {
-        private readonly string _filesDirectory = "CsvReaderTest//TestFiles";
+        private readonly string _filesDirectory = "CsvTest//TestFiles";
         private readonly ICsvReader<CsvPerson> _sut;
         private readonly ILogger<CsvReader<CsvPerson>> _loggerMock = Substitute.For<ILogger<CsvReader<CsvPerson>>>();
         private readonly ICsvPersonMapper _mapperMock = Substitute.For<ICsvPersonMapper>();
