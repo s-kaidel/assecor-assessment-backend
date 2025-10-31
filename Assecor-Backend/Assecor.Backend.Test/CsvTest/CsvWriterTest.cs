@@ -1,6 +1,7 @@
 ﻿using Assecor.Backend.CsvAccess;
 using Assecor.Backend.CsvAccess.Interfaces;
 using Assecor.Backend.Domain.Dto;
+using Assecor.Backend.Domain.Exceptions;
 
 namespace Assecor.Backend.Test.CsvTest
 {
@@ -150,6 +151,19 @@ namespace Assecor.Backend.Test.CsvTest
             lines[1].ShouldBe(expectedLine2);
 
             File.Delete(filePath);
+        }
+
+        [Fact]
+        public async Task Should_Throw_Exception()
+        {
+            var errorFilePath = "abc" + GetTempCsvFilePath();
+            var error = "An error occurred while trying to write data to the csv file:";
+
+            var act = async () => await _sut.AppendToCsvAsync(errorFilePath, []);
+
+            var ex = await act.ShouldThrowAsync<CsvWriterException>();
+            ex.Message.ShouldStartWith(error);
+            ex.InnerException?.ShouldBeOfType<FileNotFoundException>();
         }
     }
 }
