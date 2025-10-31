@@ -1,4 +1,5 @@
 ﻿using Assecor.Backend.Domain.BackendModels;
+using Assecor.Backend.Domain.Dto;
 using Assecor.Backend.Domain.Enums;
 using Assecor.Backend.Domain.Maybe;
 
@@ -25,5 +26,12 @@ namespace Assecor.Backend.Services.Contracts
         /// <param name="id">the id to match</param>
         /// <returns></returns>
         Task<Maybe<Person>> GetPersonByIdAsync(int id);
+
+        /// <summary>
+        /// Create a new person entry in the data storage, returns id of created person
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        Task<int> CreateNewCsvPersonAsync(CsvPersonDto dto);
     }
 }

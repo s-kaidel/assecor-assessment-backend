@@ -1,8 +1,8 @@
 ﻿using Assecor.Backend.Dal.Contracts;
 using Assecor.Backend.Domain.BackendModels;
+using Assecor.Backend.Domain.Dto;
 using Assecor.Backend.Domain.Enums;
 using Assecor.Backend.Domain.Maybe;
-using Assecor.Backend.Mappings;
 using Assecor.Backend.Mappings.Interfaces;
 using Assecor.Backend.Services.Contracts;
 
@@ -46,6 +46,17 @@ namespace Assecor.Backend.Services
             var csvPerson = await _csvProvider.GetPersonByIdAsync(id);
             var person = csvPerson.Map(_personMapper.MapFromCsvPerson);
             return person;
+        }
+
+        /// <summary>
+        /// Create a new person entry in the data storage, returns id of created person
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        public async Task<int> CreateNewCsvPersonAsync(CsvPersonDto dto)
+        {
+            var id = await _csvProvider.CreateCsvPersonAsync(dto);
+            return id;
         }
     }
 }
