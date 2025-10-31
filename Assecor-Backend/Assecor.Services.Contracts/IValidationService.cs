@@ -1,4 +1,6 @@
-﻿namespace Assecor.Backend.Services.Contracts
+﻿using Assecor.Backend.Domain.Requests;
+
+namespace Assecor.Backend.Services.Contracts
 {
     public interface IValidationService
     {
@@ -9,5 +11,12 @@
         /// <param name="value"></param>
         /// <returns>true, if value is in enum</returns>
         bool IsValidEnumValue<T>(int value) where T : Enum;
+
+        /// <summary>
+        /// Checks if the request data is valid. Name and lastName are required and the color, if existing, needs to be valid.
+        /// </summary>
+        /// <param name="personRequest"></param>
+        /// <returns></returns>
+        bool IsValidCsvPerson(CreateCsvPersonRequest personRequest);
     }
 }

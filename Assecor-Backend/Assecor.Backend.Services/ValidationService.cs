@@ -6,12 +6,23 @@ namespace Assecor.Backend.Services
 {
     public class ValidationService : IValidationService
     {
+        /// <summary>
+        /// Checks if provided value is in given type of enum.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <returns>true, if value is in enum</returns>
         public bool IsValidEnumValue<T>(int value) where T : Enum
         {
             var isValid = Enum.IsDefined(typeof(T), value);
             return isValid;
         }
 
+        /// <summary>
+        /// Checks if the request data is valid. Name and lastName are required and the color, if existing, needs to be valid.
+        /// </summary>
+        /// <param name="personRequest"></param>
+        /// <returns></returns>
         public bool IsValidCsvPerson(CreateCsvPersonRequest personRequest)
         {
             var isValidEnum = true;
