@@ -12,7 +12,7 @@ namespace Assecor.Backend.Services
             return isValid;
         }
 
-        public bool IsValidCsvPerson(CreateCsvPersonDto personDto)
+        public bool IsValidCsvPerson(CsvPersonDto personDto)
         {
             var isValidEnum = true;
             if (personDto.Color != null)
