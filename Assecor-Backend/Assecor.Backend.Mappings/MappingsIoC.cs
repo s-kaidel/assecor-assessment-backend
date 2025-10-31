@@ -9,6 +9,7 @@ namespace Assecor.Backend.Mappings
         {
             services.AddScoped<ICsvPersonMapper, CsvPersonMapper>();
             services.AddScoped<IPersonMapper, PersonMapper>();
+            services.AddScoped<ICsvPersonDtoMapper, CsvPersonDtoMapper>();
             return services;
         }
     }
