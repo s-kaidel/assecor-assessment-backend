@@ -162,5 +162,25 @@ namespace Assecor.Backend.Test.ProviderTests
                 Arg.Any<Exception>(),
                 Arg.Any<Func<object, Exception, string>>()!);
         }
+
+        [Fact]
+        public async Task CreateCsvPerson_Should_Return_Created_Id()
+        {
+            var id = 1;
+            var expectedMessage = "Successfully created new person with id '1'";
+            _writerMock.AppendToCsvAsync(Arg.Any<string>(), Arg.Any<IEnumerable<CsvPersonDto>>()).Returns(id);
+            _fileHandlerMock.GetPersonsFilePath().Returns(string.Empty);
+
+           
+            var result = await _sut.CreateCsvPersonAsync(new());
+            result.ShouldBe(id);
+
+            _loggerMock.Received().Log(
+                LogLevel.Information,
+                Arg.Any<EventId>(),
+                Arg.Is<object>(v => v.ToString()!.Contains(expectedMessage)),
+                Arg.Any<Exception>(),
+                Arg.Any<Func<object, Exception, string>>()!);
+        }
     }
 }

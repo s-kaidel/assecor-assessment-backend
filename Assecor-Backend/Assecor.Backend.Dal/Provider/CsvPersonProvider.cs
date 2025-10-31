@@ -79,6 +79,7 @@ namespace Assecor.Backend.Dal.Provider
         {
             var filePath = GetPersonsFilePath();
             var id = await writer.AppendToCsvAsync(filePath, [dto]);
+            _logger.LogInformation("Successfully created new person with id '{id}'", id);
             return id;
         }
 
