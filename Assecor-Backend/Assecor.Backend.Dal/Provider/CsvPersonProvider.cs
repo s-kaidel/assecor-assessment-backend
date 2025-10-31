@@ -6,6 +6,7 @@ using Assecor.Backend.Domain.Enums;
 using Assecor.Backend.Domain.Extensions;
 using Assecor.Backend.Domain.Maybe;
 using Assecor.Backend.Mappings;
+using Assecor.Backend.Mappings.Interfaces;
 using Microsoft.Extensions.Logging;
 
 namespace Assecor.Backend.Dal.Provider

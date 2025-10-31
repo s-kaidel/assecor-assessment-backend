@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Assecor.Backend.Mappings.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Assecor.Backend.Mappings
 {

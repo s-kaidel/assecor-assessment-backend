@@ -1,5 +1,6 @@
 ﻿using Assecor.Backend.Domain.BackendModels;
 using Assecor.Backend.Domain.DalModels;
+using Assecor.Backend.Mappings.Interfaces;
 
 namespace Assecor.Backend.Mappings
 {

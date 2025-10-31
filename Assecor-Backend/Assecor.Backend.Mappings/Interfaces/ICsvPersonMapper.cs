@@ -1,6 +1,6 @@
 ﻿using Assecor.Backend.Domain.DalModels;
 
-namespace Assecor.Backend.Mappings
+namespace Assecor.Backend.Mappings.Interfaces
 {
 
     public interface ICsvPersonMapper

@@ -5,6 +5,7 @@ using Assecor.Backend.Dal.Provider;
 using Assecor.Backend.Domain.DalModels;
 using Assecor.Backend.Domain.Enums;
 using Assecor.Backend.Mappings;
+using Assecor.Backend.Mappings.Interfaces;
 using Microsoft.Extensions.Logging;
 
 namespace Assecor.Backend.Test.ProviderTests

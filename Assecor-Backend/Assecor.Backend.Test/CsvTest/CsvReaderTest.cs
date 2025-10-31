@@ -3,6 +3,7 @@ using Assecor.Backend.CsvAccess.Interfaces;
 using Assecor.Backend.Domain.DalModels;
 using Assecor.Backend.Domain.Exceptions;
 using Assecor.Backend.Mappings;
+using Assecor.Backend.Mappings.Interfaces;
 using Microsoft.Extensions.Logging;
 
 namespace Assecor.Backend.Test.CsvTest

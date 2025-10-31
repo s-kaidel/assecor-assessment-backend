@@ -4,6 +4,7 @@ using Assecor.Backend.Domain.DalModels;
 using Assecor.Backend.Domain.Enums;
 using Assecor.Backend.Domain.Maybe;
 using Assecor.Backend.Mappings;
+using Assecor.Backend.Mappings.Interfaces;
 using Assecor.Backend.Services;
 using Assecor.Backend.Services.Contracts;
 using NSubstitute.ReceivedExtensions;
