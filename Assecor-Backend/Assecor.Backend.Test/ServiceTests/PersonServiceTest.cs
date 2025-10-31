@@ -3,7 +3,6 @@ using Assecor.Backend.Domain.BackendModels;
 using Assecor.Backend.Domain.DalModels;
 using Assecor.Backend.Domain.Enums;
 using Assecor.Backend.Domain.Maybe;
-using Assecor.Backend.Mappings;
 using Assecor.Backend.Mappings.Interfaces;
 using Assecor.Backend.Services;
 using Assecor.Backend.Services.Contracts;
@@ -15,7 +14,8 @@ namespace Assecor.Backend.Test.ServiceTests
     {
         private readonly IPersonService _sut;
         private readonly ICsvPersonProvider _providerMock = Substitute.For<ICsvPersonProvider>();
-        private readonly IPersonMapper _mapperMock = Substitute.For<IPersonMapper>();
+        private readonly IPersonMapper _personMapperMock = Substitute.For<IPersonMapper>();
+        private readonly ICsvPersonDtoMapper _dtoMapperMock = Substitute.For<ICsvPersonDtoMapper>();
 
         private readonly CsvPerson _testPerson = new CsvPerson()
         {
@@ -25,13 +25,13 @@ namespace Assecor.Backend.Test.ServiceTests
 
         public PersonServiceTest()
         {
-            _sut = new PersonService(_providerMock, _mapperMock);
+            _sut = new PersonService(_providerMock, _personMapperMock, _dtoMapperMock);
         }
 
         private void SetupMocks()
         {
-            _mapperMock.MapFromCsvPerson(Arg.Any<CsvPerson>()).Returns(new Person());
-            _mapperMock.MapFromCsvPersons(Arg.Any<List<CsvPerson>>()).Returns([]);
+            _personMapperMock.MapFromCsvPerson(Arg.Any<CsvPerson>()).Returns(new Person());
+            _personMapperMock.MapFromCsvPersons(Arg.Any<List<CsvPerson>>()).Returns([]);
             _providerMock.GetPersonsByColorAsync(Arg.Any<Color>()).Returns([_testPerson]);
             _providerMock.GetAllPersonsAsync().Returns([_testPerson]);
             _providerMock.GetPersonByIdAsync(Arg.Any<int>()).Returns(Maybe.From(_testPerson));
@@ -47,7 +47,7 @@ namespace Assecor.Backend.Test.ServiceTests
             await _sut.GetAllPersonsAsync();
 
             await _providerMock.Received(expectedProviderCalls).GetAllPersonsAsync();
-            _mapperMock.ReceivedWithAnyArgs(expectedMapperCalls).MapFromCsvPersons(Arg.Is<List<CsvPerson>>([_testPerson]));
+            _personMapperMock.ReceivedWithAnyArgs(expectedMapperCalls).MapFromCsvPersons(Arg.Is<List<CsvPerson>>([_testPerson]));
         }
 
         [Fact]
@@ -61,7 +61,7 @@ namespace Assecor.Backend.Test.ServiceTests
             await _sut.GetPersonsByColorAsync(color);
 
             await _providerMock.Received(expectedProviderCalls).GetPersonsByColorAsync(Arg.Is(color));
-            _mapperMock.ReceivedWithAnyArgs(expectedMapperCalls).MapFromCsvPersons(Arg.Is<List<CsvPerson>>([_testPerson]));
+            _personMapperMock.ReceivedWithAnyArgs(expectedMapperCalls).MapFromCsvPersons(Arg.Is<List<CsvPerson>>([_testPerson]));
         }
 
         [Fact]
@@ -75,7 +75,7 @@ namespace Assecor.Backend.Test.ServiceTests
             await _sut.GetPersonByIdAsync(id);
 
             await _providerMock.Received(expectedProviderCalls).GetPersonByIdAsync(Arg.Is(id));
-            _mapperMock.Received(expectedMapperCalls).MapFromCsvPerson(Arg.Is(_testPerson));
+            _personMapperMock.Received(expectedMapperCalls).MapFromCsvPerson(Arg.Is(_testPerson));
         }
     }
 }

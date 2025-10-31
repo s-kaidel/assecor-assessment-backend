@@ -1,10 +1,11 @@
-﻿using Assecor.Backend.Domain.ApiModels;
+﻿using Assecor.Backend.Api.Responses;
+using Assecor.Backend.Domain.ApiModels;
 using Assecor.Backend.Domain.Enums;
-using Microsoft.AspNetCore.Mvc;
-using System.Net.Mime;
-using Assecor.Backend.Api.Responses;
+using Assecor.Backend.Domain.Requests;
 using Assecor.Backend.Mappings;
 using Assecor.Backend.Services.Contracts;
+using Microsoft.AspNetCore.Mvc;
+using System.Net.Mime;
 
 namespace Assecor.Backend.Api.Controllers
 {
@@ -50,7 +51,6 @@ namespace Assecor.Backend.Api.Controllers
             var persons = await _personService.GetPersonsByColorAsync((Color)color);
             var apiPersons = ApiPersonMapper.MapFromDomainPersons(persons);
             return RestServerOk(apiPersons);
-
         }
 
         /// <summary>
@@ -68,6 +68,23 @@ namespace Assecor.Backend.Api.Controllers
             var person = await _personService.GetPersonByIdAsync(id);
             var apiPerson = person.Map(ApiPersonMapper.MapFromDomainPerson);
             return MapToResult(apiPerson, $"No person with id '{id}' could be found!");
+        }
+
+        [HttpPost]
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(RestServerErrorResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(RestServerErrorResponse), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> CreatePersonAsync([FromBody] CreateCsvPersonRequest request)
+        {
+            var validRequest = _validationService.IsValidCsvPerson(request);
+            if (!validRequest)
+            {
+                return RestServerBadRequest("Create person request is not valid");
+            }
+
+            var id = await _personService.CreateNewCsvPersonAsync(request);
+            return RestServerOk(id);
         }
     }
 }

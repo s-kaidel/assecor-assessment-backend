@@ -2,6 +2,7 @@
 using Assecor.Backend.Domain.Dto;
 using Assecor.Backend.Domain.Enums;
 using Assecor.Backend.Domain.Maybe;
+using Assecor.Backend.Domain.Requests;
 
 namespace Assecor.Backend.Services.Contracts
 {
@@ -30,8 +31,8 @@ namespace Assecor.Backend.Services.Contracts
         /// <summary>
         /// Create a new person entry in the data storage, returns id of created person
         /// </summary>
-        /// <param name="dto"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        Task<int> CreateNewCsvPersonAsync(CsvPersonDto dto);
+        Task<int> CreateNewCsvPersonAsync(CreateCsvPersonRequest request);
     }
 }

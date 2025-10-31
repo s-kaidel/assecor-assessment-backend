@@ -1,18 +1,18 @@
 ﻿using Assecor.Backend.Dal.Contracts;
 using Assecor.Backend.Domain.BackendModels;
-using Assecor.Backend.Domain.Dto;
 using Assecor.Backend.Domain.Enums;
 using Assecor.Backend.Domain.Maybe;
+using Assecor.Backend.Domain.Requests;
 using Assecor.Backend.Mappings.Interfaces;
 using Assecor.Backend.Services.Contracts;
 
 namespace Assecor.Backend.Services
 {
-    public class PersonService(ICsvPersonProvider csvProvider, IPersonMapper personMapper) : IPersonService
+    public class PersonService(ICsvPersonProvider csvProvider, IPersonMapper personMapper, ICsvPersonDtoMapper dtoMapper) : IPersonService
     {
         private readonly ICsvPersonProvider _csvProvider = csvProvider;
         private readonly IPersonMapper _personMapper = personMapper;
-
+        private readonly ICsvPersonDtoMapper _dtoMapper = dtoMapper;
         /// <summary>
         /// Returns all currently available persons from the data storage
         /// </summary>
@@ -48,13 +48,15 @@ namespace Assecor.Backend.Services
             return person;
         }
 
+        //TODO add unit test
         /// <summary>
         /// Create a new person entry in the data storage, returns id of created person
         /// </summary>
-        /// <param name="dto"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<int> CreateNewCsvPersonAsync(CsvPersonDto dto)
+        public async Task<int> CreateNewCsvPersonAsync(CreateCsvPersonRequest request)
         {
+            var dto = _dtoMapper.MapFromCreateCsvPersonRequest(request);
             var id = await _csvProvider.CreateCsvPersonAsync(dto);
             return id;
         }

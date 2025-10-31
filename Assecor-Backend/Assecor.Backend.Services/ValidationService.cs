@@ -18,6 +18,8 @@ namespace Assecor.Backend.Services
             return isValid;
         }
 
+
+        //TODO add logging, return string containing faulty values
         /// <summary>
         /// Checks if the request data is valid. Name and lastName are required and the color, if existing, needs to be valid.
         /// If a city is provided, it can't be a whitespace
