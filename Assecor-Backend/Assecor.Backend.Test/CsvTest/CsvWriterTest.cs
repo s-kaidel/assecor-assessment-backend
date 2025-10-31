@@ -70,5 +70,86 @@ namespace Assecor.Backend.Test.CsvTest
 
             File.Delete(filePath);
         }
+
+        [Fact]
+        public async Task Should_Skip_First_Row()
+        {
+            var expectedLine1 = "Hans, Habicht, 91074 Falkendorf, 2";
+            var expectedLine2 = "Gundula, Geier, 91074 Niederndorf, 3";
+
+            var filePath = GetTempCsvFilePath(expectedLine1);
+            var expectedLength = 2;
+           
+            var csvPerson = new CsvPersonDto()
+            {
+                Name = "Gundula",
+                LastName = "Geier",
+                Location = "91074 Niederndorf",
+                Color = 3
+            };
+
+            await _sut.AppendToCsvAsync(filePath, [csvPerson]);
+            
+            var lines = await File.ReadAllLinesAsync(filePath);
+            lines.Length.ShouldBe(expectedLength);
+            lines[0].ShouldBe(expectedLine1);
+            lines[1].ShouldBe(expectedLine2);
+
+            File.Delete(filePath);
+        }
+
+        [Fact]
+        public async Task Should_Write_Header_Row()
+        {
+            var expectedLine1 = "Name, LastName, Location, Color";
+            var expectedLine2 = "Gundula, Geier, 91074 Niederndorf, 3";
+
+            var filePath = GetTempCsvFilePath();
+            var expectedLength = 2;
+           
+            var csvPerson = new CsvPersonDto()
+            {
+                Name = "Gundula",
+                LastName = "Geier",
+                Location = "91074 Niederndorf",
+                Color = 3
+            };
+
+            await _sut.AppendToCsvAsync(filePath, [csvPerson], false, true);
+            
+            var lines = await File.ReadAllLinesAsync(filePath);
+            lines.Length.ShouldBe(expectedLength);
+            lines[0].ShouldBe(expectedLine1);
+            lines[1].ShouldBe(expectedLine2);
+
+            File.Delete(filePath);
+        }
+
+        [Fact]
+        public async Task Should_Not_Write_Over_Existing_Header_Row()
+        {
+            var expectedLine1 = "Name, LastName, Location, Color";
+            var expectedLine2 = "Gundula, Geier, 91074 Niederndorf, 3";
+
+            var filePath = GetTempCsvFilePath(expectedLine1);
+            var expectedLength = 2;
+           
+            var csvPerson = new CsvPersonDto()
+            {
+                Name = "Gundula",
+                LastName = "Geier",
+                Location = "91074 Niederndorf",
+                Color = 3
+            };
+
+            await _sut.AppendToCsvAsync(filePath, [csvPerson], true, false);
+            
+            var lines = await File.ReadAllLinesAsync(filePath);
+            lines.Length.ShouldBe(expectedLength);
+            lines[0].ShouldBe(expectedLine1);
+            lines[1].ShouldBe(expectedLine2);
+
+            File.Delete(filePath);
+        }
     }
 }
