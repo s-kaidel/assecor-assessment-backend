@@ -26,16 +26,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="CsvReaderTest\TestFiles\illFormattedLines.csv">
+    <None Update="CsvTest\TestFiles\illFormattedLines.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="CsvReaderTest\TestFiles\notParsableLines.csv">
+    <None Update="CsvTest\TestFiles\notParsableLines.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="CsvReaderTest\TestFiles\missing_lines.csv">
+    <None Update="CsvTest\TestFiles\missing_lines.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="CsvReaderTest\TestFiles\persons.csv">
+    <None Update="CsvTest\TestFiles\persons.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
