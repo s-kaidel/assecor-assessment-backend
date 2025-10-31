@@ -1,12 +1,14 @@
 ﻿using CsvHelper.Configuration;
 using System.Globalization;
+using Assecor.Backend.CsvAccess.Interfaces;
 using Assecor.Backend.Domain.Exceptions;
+using Microsoft.Extensions.Logging;
 
 namespace Assecor.Backend.CsvAccess
 {
-    public class CsvWriter
+    public class CsvWriter<T>(ILogger<CsvWriter<T>> logger) : ICsvWriter<T>
     {
-        public async Task WriteToCsvAsync<T>(string filePath, IEnumerable<T> data)
+        public async Task WriteToCsvAsync(string filePath, IEnumerable<T> data)
         {
             try
             {
